@@ -9,7 +9,6 @@ const MessengerButton = () => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
-    // Check if the user already clicked
     const clickedBefore = localStorage.getItem("messengerClicked");
     if (!clickedBefore) {
       setAnimate(true);
@@ -24,26 +23,37 @@ const MessengerButton = () => {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex items-center">
+    <div className="fixed bottom-14 right-5 z-50 flex items-center">
       {/* Tooltip */}
-      {showTooltip && (
+      {/* {showTooltip && (
         <div className="mr-3 px-3 py-1 bg-white text-black text-sm rounded-lg shadow-lg animate-fadeIn">
           Need any Help?
         </div>
-      )}
+      )} */}
 
-      {/* Button */}
-      <a
-        href={messengerLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={handleClick}
-        className={`flex items-center justify-center w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition
-          ${animate ? "animate-bounce" : ""}`}
-        title="Message us on Messenger"
-      >
-        <FaFacebookMessenger className="text-2xl" />
-      </a>
+      {/* Messenger Button with Wave Effect */}
+      <div className="relative">
+        {/* Ripple/Wave Effect */}
+        {animate && (
+          <>
+          {/* <span className="absolute inset-0 rounded-full bg-white opacity-30 animate-ping-slow"></span> */}
+            <span className="absolute inset-0 rounded-full bg-gray-300 opacity-30 animate-ping-slow"></span>
+            <span className="absolute inset-0 rounded-full bg-gray-400 opacity-30 animate-ping-slower"></span>
+          </>
+        )}
+
+        {/* Actual Button */}
+        <a
+          href={messengerLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleClick}
+          className="relative flex items-center justify-center w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition"
+          title="Message us on Messenger"
+        >
+          <FaFacebookMessenger className="text-3xl" />
+        </a>
+      </div>
     </div>
   );
 };

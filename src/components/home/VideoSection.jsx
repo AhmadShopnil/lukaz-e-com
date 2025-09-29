@@ -1,4 +1,5 @@
 import { getVideos } from "@/utils/actions";
+import Link from "next/link";
 import React from "react";
 
 const VideoSection = async ({video}) => {
@@ -36,9 +37,13 @@ const VideoSection = async ({video}) => {
               <p className="text-white text-lg mb-4 space-grotesk">{video?.description}</p>
        
             {videoInfo.buttonText && (
-              <button className="px-6 py-1.5  sm:px-8 sm:py-3  text-white rounded-md border border-white transition space-grotesk">
+              <Link 
+              href="/shop/all"
+                 className=" space-grotesk text-white font-semibold px-4 sm:px-8 py-1.5 sm:py-3 
+                    rounded-md border border-white shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out sm:mt-4
+                     text-xs sm:text-lg md:text-xl hover:border-[#3A9E75] hover:bg-[#3A9E75]">
                {video?.button_text}
-              </button>
+              </Link>
             )}
           </div>
         </div>

@@ -17,11 +17,11 @@ export default function CardWithFullImage({ item }) {
       {/* <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div> */}
 
    
-      <Link 
+      {/* <Link 
       href={`/product/${item?.slug}`}
       className="absolute bottom-8 left-4 right-4 text-white text-2xl font-bold z-10">
         {item?.product_name} ({item?.color})
-      </Link>
+      </Link> */}
     </div>
   )
 }

@@ -154,6 +154,10 @@ export default function ProductDetails({ product }) {
 
   }
 
+// console.log("product details", product)
+
+
+
   if (loading) {
     return (
       <>
@@ -486,11 +490,11 @@ export default function ProductDetails({ product }) {
       </div>
 
       {/* Product Description */}
-      {product?.product?.description.lentgh >0 ? <div className="mb-16 overflow-hidden">
+      {product?.product?.description ? <div className="mb-16 overflow-hidden">
         <h2 className="text-2xl md:text-3xl font-bold text-[#3A9E75] mb-6">Product Description</h2>
         <div
           className="prose max-w-none text-gray-700 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: product?.product?.description || "" }}
+          dangerouslySetInnerHTML={{ __html: product?.product?.description || "No Product Description" }}
         />
 
       </div>

@@ -433,16 +433,18 @@ export default function InternationalProductDetails({ product }) {
         </div>
       </div>
 
-      {/* Product Description */}
-      <div className="mb-16 overflow-hidden">
+  {/* Product Description */}
+      {product?.product?.description ? <div className="mb-16 overflow-hidden">
         <h2 className="text-2xl md:text-3xl font-bold text-[#3A9E75] mb-6">Product Description</h2>
         <div
           className="prose max-w-none text-gray-700 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: product?.product?.description || "" }}
+          dangerouslySetInnerHTML={{ __html: product?.product?.description || "No Product Description" }}
         />
 
       </div>
-
+        :
+        <p className="text-center text-gray-700 text-lg bg-[#ECF5F1] p-3 mb-6">No Product Description</p>
+      }
       {/* Reviews Section */}
       <div className="mb-16">
         <Reviews reviews={product?.review} />
