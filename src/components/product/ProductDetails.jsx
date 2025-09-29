@@ -22,6 +22,8 @@ import { WishListContext } from "@/context/WishListContext"
 import Link from "next/link"
 import RelatedProducts from "@/components/product/RelatedProducts"
 import ProductDetailsSkeleton from "@/components/Skeletons/ProductDetailsSkeleton"
+import Image from "next/image"
+import ShipingTimeLine from "./ShipingTimeLine"
 
 
 const features = [
@@ -140,7 +142,7 @@ export default function ProductDetails({ product }) {
       selectedColourSlug,
       selectedItemImage: mainImage,
     }
-    
+
 
     if (isInWishlist(selectedColourSlug)) {
       wishListDispatch({ type: "REMOVE_ITEM", payload: product?.slug });
@@ -197,12 +199,18 @@ export default function ProductDetails({ product }) {
           </div>
         </div>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-xl md:text-2xl  lg:text-3xl font-bold text-gray-900">৳ {product?.product?.current_price}</span>
           {product?.product?.regular_price && (
             <>
-              <span className="text-xl text-gray-500 line-through">৳ {product?.product?.regular_price}</span>
-              <span className="bg-red-100 text-red-800 text-sm font-medium px-2 py-1 rounded">
-                ৳ {product?.product?.discount} OFF
+              <span className="text-xl md:text-2xl  lg:text-3xl font-semibold text-gray-500 line-through">Tk {product?.product?.regular_price}</span>
+
+            </>
+          )}
+          <span className="text-xl md:text-2xl  lg:text-3xl font-bold text-gray-900">Tk {product?.product?.current_price}</span>
+          {product?.product?.regular_price && (
+            <>
+              {/* <span className="text-xl text-gray-500 line-through">৳ {product?.product?.regular_price}</span> */}
+              <span className="bg-black text-white text-sm font-medium px-2 py-1 rounded">
+                SAVE {Math.floor(100 / product?.product?.regular_price * product?.product?.discount)}%
               </span>
             </>
           )}
@@ -245,9 +253,9 @@ export default function ProductDetails({ product }) {
                 <SwiperSlide key={index} className="cursor-pointer">
                   <div
                     onClick={() => handleColorSelect(item)}
-                    className={`aspect-square rounded-lg overflow-hidden w-24 h-24  hover:border-teal-700  ${selectedColor === item?.color
-                        ? "border-2 border-teal-700 "
-                        : "  "
+                    className={`aspect-square rounded-lg overflow-hidden w-18 h-18 sm:w-24 sm:h-24  hover:border-teal-700  ${selectedColor === item?.color
+                      ? "border-2 border-teal-700 "
+                      : "  "
 
                       }`}>
                     <img
@@ -284,7 +292,7 @@ export default function ProductDetails({ product }) {
               </div>
             </div>
             <div className="hidden md:flex items-center gap-3 mb-4">
-               {product?.product?.regular_price && (
+              {product?.product?.regular_price && (
                 <>
                   <span className="text-xl md:text-2xl  lg:text-3xl font-semibold text-gray-500 line-through">Tk {product?.product?.regular_price}</span>
                   {/* <span className="bg-red-100 text-red-800 text-sm font-medium px-2 py-1 rounded">
@@ -297,7 +305,7 @@ export default function ProductDetails({ product }) {
                 <>
                   {/* <span className="text-xl text-gray-500 line-through">৳ {product?.product?.regular_price}</span> */}
                   <span className="bg-black text-white text-sm font-medium px-2 py-1 rounded">
-                    SAVE {Math.floor(100/product?.product?.regular_price *product?.product?.discount)}%
+                    SAVE {Math.floor(100 / product?.product?.regular_price * product?.product?.discount)}%
                   </span>
                 </>
               )}
@@ -374,10 +382,10 @@ export default function ProductDetails({ product }) {
                   key={item}
                   onClick={() => handleSizeSelect(item)}
                   className={`w-10 h-10 border-2 rounded-md flex items-center justify-center text-sm font-medium transition-all ${selectedSize === item
-                      ? "border-gray-900 bg-gray-900 text-white"
-                      : item?.stock < 0
-                        ? "border-gray-300 hover:border-gray-500 text-gray-900"
-                        : "border-gray-200 text-gray-400 "
+                    ? "border-gray-900 bg-gray-900 text-white"
+                    : item?.stock < 0
+                      ? "border-gray-300 hover:border-gray-500 text-gray-900"
+                      : "border-gray-200 text-gray-400 "
                     }`}
                 >
                   {item}
@@ -416,8 +424,8 @@ export default function ProductDetails({ product }) {
                   onClick={handleAddToCart}
                   disabled={isButtonDisable()}
                   className={`w-full cursor-pointer py-3 px-6 rounded-md font-semibold shadow-md hover:shadow-lg disabled:cursor-not-allowed transition-all duration-300 ${isPreOrderRequired()
-                      ? "bg-gradient-to-r from-orange-600 to-orange-500 text-white hover:from-orange-700 hover:to-orange-600 disabled:from-gray-300 disabled:to-gray-300 disabled:text-gray-600"
-                      : "bg-gradient-to-r from-gray-900 to-gray-700 text-white hover:from-gray-800 hover:to-gray-600 disabled:from-gray-300 disabled:to-gray-300 disabled:text-gray-600"
+                    ? "bg-gradient-to-r from-orange-600 to-orange-500 text-white hover:from-orange-700 hover:to-orange-600 disabled:from-gray-300 disabled:to-gray-300 disabled:text-gray-600"
+                    : "bg-gradient-to-r from-gray-900 to-gray-700 text-white hover:from-gray-800 hover:to-gray-600 disabled:from-gray-300 disabled:to-gray-300 disabled:text-gray-600"
                     }`}
                 >
                   {isPreOrderRequired() ? "Pre-Order" : "Add to Cart"}
@@ -432,7 +440,37 @@ export default function ProductDetails({ product }) {
 
 
           </div>
+          <div className=" flex flex-wrap gap-3  justify-start items-center ">
 
+            <Image
+              src="/images/payments/Bkash.png"
+              alt="Bkash"
+              width={60}
+              height={30}
+            />
+
+            <Image
+              src="/images/payments/Nagad.png"
+              alt="nagad"
+              width={60}
+              height={30}
+              className=""
+            />
+            <Image
+              src="/images/payments/Visa.png"
+              alt="visa"
+              width={50}
+              height={30}
+              className=""
+            />
+            <Image
+              src="/images/payments/Mastercard.png"
+              alt="mastercard"
+              width={45}
+              height={30}
+              className=""
+            />
+          </div>
           {/* Features */}
           <div>
             <p className="text-md font-medium text-[#3A9E75] mb-2">Estimated days: {product?.product?.pre_order_days}</p>
@@ -448,7 +486,7 @@ export default function ProductDetails({ product }) {
       </div>
 
       {/* Product Description */}
-      <div className="mb-16 overflow-hidden">
+      {product?.product?.description.lentgh >0 ? <div className="mb-16 overflow-hidden">
         <h2 className="text-2xl md:text-3xl font-bold text-[#3A9E75] mb-6">Product Description</h2>
         <div
           className="prose max-w-none text-gray-700 leading-relaxed"
@@ -456,6 +494,12 @@ export default function ProductDetails({ product }) {
         />
 
       </div>
+        :
+        <p className="text-center text-gray-700 text-lg bg-[#ECF5F1] p-3 mb-6">No Product Description</p>
+      }
+
+
+      <ShipingTimeLine/>
 
       {/* Reviews Section */}
       <div className="mb-16">

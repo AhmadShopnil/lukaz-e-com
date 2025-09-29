@@ -23,19 +23,19 @@ import Link from "next/link"
 import InternationalOrderModal from "@/components/shared/InternationalOrderModal"
 import RelatedProducts from "./RelatedProducts"
 
-const  features= [
-    "React foam midsole for lightweight comfort",
-    "Air Max 270 unit for maximum cushioning",
-    "Breathable mesh upper",
-    "Rubber outsole for durability",
-    "Heel pull tab for easy on and off",
-  ]
+const features = [
+  "React foam midsole for lightweight comfort",
+  "Air Max 270 unit for maximum cushioning",
+  "Breathable mesh upper",
+  "Rubber outsole for durability",
+  "Heel pull tab for easy on and off",
+]
 
 
 
-export default function InternationalProductDetails({product}) {
+export default function InternationalProductDetails({ product }) {
   const { dispatch } = useContext(CartContext);
-  const { state:wishListState,dispatch:wishListDispatch } = useContext(WishListContext);
+  const { state: wishListState, dispatch: wishListDispatch } = useContext(WishListContext);
   const [isOpenIntOrderModal, setIsOpenIntOrderModal] = useState(false)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -46,26 +46,26 @@ export default function InternationalProductDetails({product}) {
   const [selectedColourSlug, setSelectedColourSlug] = useState(null)
   const [selectedItemImage, setSelectedItemImage] = useState(null)
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
-  const [mainImage,setMainImage]=useState("")
-  const [customSlug,setCustomSlug]=useState("")
-  const [selectedItemFromAdditional,setSelectItemFromAdditional]=useState({})
+  const [mainImage, setMainImage] = useState("")
+  const [customSlug, setCustomSlug] = useState("")
+  const [selectedItemFromAdditional, setSelectItemFromAdditional] = useState({})
 
 
 
-  useEffect(() => { 
-  const img=product?.color_thumbnails
-  setMainImage(img)
-  setSelectedColor(product?.color)
-  setSelectedColourSlug(product?.slug)
-    
-  setSelectedItemImage(product?.color_icon_small)
+  useEffect(() => {
+    const img = product?.color_thumbnails
+    setMainImage(img)
+    setSelectedColor(product?.color)
+    setSelectedColourSlug(product?.slug)
+
+    setSelectedItemImage(product?.color_icon_small)
   }, [product]);
-  
-  useEffect(() => { 
-    const selectedtem=product?.additionals.find((item)=>item?.additional_key==customSlug)|| {}
+
+  useEffect(() => {
+    const selectedtem = product?.additionals.find((item) => item?.additional_key == customSlug) || {}
     setSelectItemFromAdditional(selectedtem)
   }, [customSlug]);
-  
+
 
 
   const handleColorSelect = (item) => {
@@ -77,36 +77,36 @@ export default function InternationalProductDetails({product}) {
 
   }
 
-const handleSizeSelect=(item)=>{
-   setSelectedSize(item)
-   setCustomSlug(`${product?.product_id}_${selectedColor.toLowerCase()}_${item}`)
+  const handleSizeSelect = (item) => {
+    setSelectedSize(item)
+    setCustomSlug(`${product?.product_id}_${selectedColor.toLowerCase()}_${item}`)
 
-}
+  }
 
- 
 
-const isPreOrderRequired = () => {
 
-   if(product?.product?.is_pre_order==1 && selectedItemFromAdditional?.stocks_sum_stock==0){
-    return true ;
-   }
-    return false ;
-}
+  const isPreOrderRequired = () => {
 
-const isStockAvailable=()=>{
-  return selectedItemFromAdditional?.stocks_sum_stock > 0
-}
+    if (product?.product?.is_pre_order == 1 && selectedItemFromAdditional?.stocks_sum_stock == 0) {
+      return true;
+    }
+    return false;
+  }
 
-const isButtonDisable=()=>{
- if(product?.product?.is_pre_order==0 && selectedItemFromAdditional?.stocks_sum_stock==0){
-    return true ;
-   }
-    return false ;
-}
+  const isStockAvailable = () => {
+    return selectedItemFromAdditional?.stocks_sum_stock > 0
+  }
 
- const handleAddToCart = () => {
-   const payload={
-      productData:product,
+  const isButtonDisable = () => {
+    if (product?.product?.is_pre_order == 0 && selectedItemFromAdditional?.stocks_sum_stock == 0) {
+      return true;
+    }
+    return false;
+  }
+
+  const handleAddToCart = () => {
+    const payload = {
+      productData: product,
       quantity,
       selectedSize,
       selectedColor,
@@ -115,17 +115,17 @@ const isButtonDisable=()=>{
       id: crypto.randomUUID(),
     }
     // console.log("cart payload",payload)
-     dispatch({ type: "ADD_ITEM", payload  });
-        toast.success(` Added to cart`);
-   }
+    dispatch({ type: "ADD_ITEM", payload });
+    toast.success(` Added to cart`);
+  }
 
-const handlewishList=()=>{
-  const payload= { productData: product }
-  // console.log("adding wish list",payload)
+  const handlewishList = () => {
+    const payload = { productData: product }
+    // console.log("adding wish list",payload)
 
-  wishListDispatch({ type: "ADD_ITEM", payload });
+    wishListDispatch({ type: "ADD_ITEM", payload });
     toast.success(`Added to wishlist!`);
-}
+  }
 
 
 
@@ -150,7 +150,7 @@ const handlewishList=()=>{
         <Link href="/" className="hover:text-gray-700">
           Home
         </Link>
-       
+
         <span>/</span>
         <Link href="/shop" className="hover:text-gray-700">
           Shop
@@ -158,9 +158,9 @@ const handlewishList=()=>{
         <span>/</span>
         <span className="text-gray-900">{product?.product?.name}</span>
       </div>
-    {/* Product Section */}
+      {/* Product Section */}
 
-    {/* for small screen */}
+      {/* for small screen */}
       <div className="block md:hidden">
         <p className="text-sm text-gray-500 mb-0.5">{product?.product.brand?.name}</p>
         <h1 className="text-2xl font-bold text-gray-600 mb-2">{product?.product?.name}</h1>
@@ -175,70 +175,75 @@ const handlewishList=()=>{
           </div>
         </div>
         <div className="flex items-center gap-3 mb-6">
-              <span className="text-xl md:text-2xl  lg:text-3xl font-bold text-gray-900">৳ {product?.product?.current_price}</span>
-              {product?.product?.regular_price && (
-                <>
-                  <span className="text-xl text-gray-500 line-through">৳ {product?.product?.regular_price}</span>
-                  <span className="bg-red-100 text-red-800 text-sm font-medium px-2 py-1 rounded">
-                      ৳ {product?.product?.discount} OFF
-                  </span>
-                </>
-              )}
-            </div>
+          {product?.product?.regular_price && (
+            <>
+              <span className="text-xl md:text-2xl  lg:text-3xl font-semibold text-gray-500 line-through">Tk {product?.product?.regular_price}</span>
+
+            </>
+          )}
+          <span className="text-xl md:text-2xl  lg:text-3xl font-bold text-gray-900">Tk {product?.product?.current_price}</span>
+          {product?.product?.regular_price && (
+            <>
+              {/* <span className="text-xl text-gray-500 line-through">৳ {product?.product?.regular_price}</span> */}
+              <span className="bg-black text-white text-sm font-medium px-2 py-1 rounded">
+                SAVE {Math.floor(100 / product?.product?.regular_price * product?.product?.discount)}%
+              </span>
+            </>
+          )}
+        </div>
       </div>
 
       {/* for Big screen */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
-        
+
         {/* Image Gallery */}
         <div className="space-y-2">
           <Swiper
-            modules={[Pagination, Thumbs]} 
+            modules={[Pagination, Thumbs]}
             thumbs={{ swiper: thumbsSwiper }}
             pagination={{ clickable: true }}
             className="aspect-square rounded-lg overflow-hidden"
           >
-           
-              <SwiperSlide >
-                <img
-                  // src={"/placeholder.svg"}
-                  src={getImageUrl("products",mainImage)}
-                  alt={`${product?.product?.name} `}
-                  className="w-full h-full object-cover"
-                />
-              </SwiperSlide>
-          
+
+            <SwiperSlide >
+              <img
+                // src={"/placeholder.svg"}
+                src={getImageUrl("products", mainImage)}
+                alt={`${product?.product?.name} `}
+                className="w-full h-full object-cover"
+              />
+            </SwiperSlide>
+
           </Swiper>
 
           {/* Thumbnail Navigation */}
           <div className="">
             <Swiper
-            onSwiper={setThumbsSwiper}
-            spaceBetween={10}
-            slidesPerView={4}
-            watchSlidesProgress
-            className="thumbs-swiper"
-          >
-            {product?.gallaries?.map((item, index) => (
-              <SwiperSlide key={index} className="cursor-pointer">
-                <div 
-                onClick={() => handleColorSelect(item)}
-                className={`aspect-square rounded-lg overflow-hidden w-24 h-24  hover:border-teal-700  ${
-                    selectedColor === item?.color
+              onSwiper={setThumbsSwiper}
+              spaceBetween={10}
+              slidesPerView={4}
+              watchSlidesProgress
+              className="thumbs-swiper"
+            >
+              {product?.gallaries?.map((item, index) => (
+                <SwiperSlide key={index} className="cursor-pointer">
+                  <div
+                    onClick={() => handleColorSelect(item)}
+                    className={`aspect-square rounded-lg overflow-hidden w-24 h-24  hover:border-teal-700  ${selectedColor === item?.color
                       ? "border-2 border-teal-700 "
                       : "  "
-                        
-                  }`}>
-                  <img
-                  src={getImageUrl("products",item?.color_icon)}
-                    // src={image || "/placeholder.svg"}
-                    alt={`Thumbnail ${index + 1}`}
-                    className="w-full h-full object-cover border-2 border-gray-300 rounded-lg"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+
+                      }`}>
+                    <img
+                      src={getImageUrl("products", item?.color_icon)}
+                      // src={image || "/placeholder.svg"}
+                      alt={`Thumbnail ${index + 1}`}
+                      className="w-full h-full object-cover border-2 border-gray-300 rounded-lg"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
 
@@ -254,8 +259,8 @@ const handlewishList=()=>{
                     {[...Array(5)].map((_, i) => (
 
                       <>
-                      <StarIcon key={i} filled={i < Math.floor(product?.review_avg_rating)} />
-                      </>                           
+                        <StarIcon key={i} filled={i < Math.floor(product?.review_avg_rating)} />
+                      </>
                     ))}
                   </div>
                   <span className="text-sm text-gray-600">({product?.review?.length} reviews)</span>
@@ -263,7 +268,7 @@ const handlewishList=()=>{
               </div>
             </div>
             <div className="hidden md:flex items-center gap-3 mb-4">
-                       {product?.product?.regular_price && (
+              {product?.product?.regular_price && (
                 <>
                   <span className="text-xl md:text-2xl  lg:text-3xl font-semibold text-gray-500 line-through">Tk {product?.product?.regular_price}</span>
                   {/* <span className="bg-red-100 text-red-800 text-sm font-medium px-2 py-1 rounded">
@@ -276,137 +281,135 @@ const handlewishList=()=>{
                 <>
                   {/* <span className="text-xl text-gray-500 line-through">৳ {product?.product?.regular_price}</span> */}
                   <span className="bg-black text-white text-sm font-medium px-2 py-1 rounded">
-                    SAVE {Math.floor(100/product?.product?.regular_price *product?.product?.discount)}%
+                    SAVE {Math.floor(100 / product?.product?.regular_price * product?.product?.discount)}%
                   </span>
                 </>
               )}
-             </div>
+            </div>
           </div>
-         {/* Stock Status */}
+          {/* Stock Status */}
           {selectedSize &&
-          <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full
-               ${selectedItemFromAdditional?.stocks_sum_stock >0 ? "bg-green-500" : "bg-red-500"}`} />
-            <span className="text-sm text-gray-600">
-              {selectedItemFromAdditional.stocks_sum_stock >0 ? `In Stock (${selectedItemFromAdditional?.stocks_sum_stock})` : "Out of Stock"}
-            </span>
-            
-          </div>}
+            <div className="flex items-center gap-2">
+              <div className={`w-2 h-2 rounded-full
+               ${selectedItemFromAdditional?.stocks_sum_stock > 0 ? "bg-green-500" : "bg-red-500"}`} />
+              <span className="text-sm text-gray-600">
+                {selectedItemFromAdditional.stocks_sum_stock > 0 ? `In Stock (${selectedItemFromAdditional?.stocks_sum_stock})` : "Out of Stock"}
+              </span>
+
+            </div>}
           {/* Color Selection */}
           <div className="bg-gray-100 p-4 rounded-md">
             {selectedColor && (
               <p className="text-sm text-gray-600 mb-1 ">
                 Selected: {selectedColor}
               </p>
-              )}
+            )}
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-medium text-gray-900">COLOR</h3>
             </div>
- 
+
             <div className="flex gap-2 flex-wrap">
               {product?.gallaries?.map((item) => (
                 <button
                   key={item?.id}
                   onClick={() => handleColorSelect(item)}
                   className={`relative w-13 h-13 border-2 rounded-md overflow-hidden
-                     transition-all  ${
-                    selectedColor === item?.color
+                     transition-all  ${selectedColor === item?.color
                       ? "border-gray-600 "
                       : "border-gray-300 hover:border-gray-400"
-                        
-                  }`}
+
+                    }`}
                   title={item?.color}
                 >
                   <img
-                   src={getImageUrl("products",item?.color_icon)}
+                    src={getImageUrl("products", item?.color_icon)}
                     alt={item.color}
                     className="w-full h-full object-cover"
                   />
                 </button>
               ))}
-            </div>         
+            </div>
           </div>
 
           {/* Size Selection */}
           <div className="bg-gray-100 p-4 rounded-md">
-          {/* Selected Size */}
-          {selectedSize && (
-            <p className="text-sm text-gray-600 mb-1">
-              Selected: Size {selectedSize} 
-            
-            </p>
-          )}
+            {/* Selected Size */}
+            {selectedSize && (
+              <p className="text-sm text-gray-600 mb-1">
+                Selected: Size {selectedSize}
 
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-sm font-medium text-gray-900">SELECT SIZE</h3>
-        <button
-          onClick={() => setIsSizeModalOpen(true)}
-          className="text-sm text-gray-900 underline hover:text-gray-700"
-        >
-          Size Chart
-        </button>
-      </div>
+              </p>
+            )}
 
-      {/* Size Options */}
-      <div className="flex gap-1.5 md:gap-2 flex-wrap">
-        {product?.product?.size?.map((item) => (
-          <button
-            key={item}
-            onClick={() => handleSizeSelect(item)}
-            className={`w-10 h-10 border-2 rounded-md flex items-center justify-center text-sm font-medium transition-all ${
-              selectedSize === item
-                ? "border-gray-900 bg-gray-900 text-white"
-                : item?.stock < 0
-                ? "border-gray-300 hover:border-gray-500 text-gray-900"
-                : "border-gray-200 text-gray-400 "
-            }`}
-          >
-            {item}
-            
-          </button>
-        ))}
-      </div>
-       </div>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-sm font-medium text-gray-900">SELECT SIZE</h3>
+              <button
+                onClick={() => setIsSizeModalOpen(true)}
+                className="text-sm text-gray-900 underline hover:text-gray-700"
+              >
+                Size Chart
+              </button>
+            </div>
+
+            {/* Size Options */}
+            <div className="flex gap-1.5 md:gap-2 flex-wrap">
+              {product?.product?.size?.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => handleSizeSelect(item)}
+                  className={`w-10 h-10 border-2 rounded-md flex items-center justify-center text-sm font-medium transition-all ${selectedSize === item
+                    ? "border-gray-900 bg-gray-900 text-white"
+                    : item?.stock < 0
+                      ? "border-gray-300 hover:border-gray-500 text-gray-900"
+                      : "border-gray-200 text-gray-400 "
+                    }`}
+                >
+                  {item}
+
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* Quantity */}
           <div>
             <h3 className="text-sm font-medium text-gray-900 mb-3">Quantity</h3>
-               
+
             <div className="flex items-center border border-gray-300 rounded-md w-32">
               <button onClick={() => setQuantity(Math.max(1, quantity - 1))}
-               className="p-3 bg-[#ECF5F1] hover:bg-gray-100 rounded-l-md ">
+                className="p-3 bg-[#ECF5F1] hover:bg-gray-100 rounded-l-md ">
                 <Minus size="18" />
               </button>
               <span className="flex-1 text-center">{quantity}</span>
-              <button onClick={() => setQuantity(quantity + 1)} 
-              className="p-3 bg-[#ECF5F1] hover:bg-gray-100 rounded-r-md ">
-               <Plus size="18" />
+              <button onClick={() => setQuantity(quantity + 1)}
+                className="p-3 bg-[#ECF5F1] hover:bg-gray-100 rounded-r-md ">
+                <Plus size="18" />
               </button>
             </div>
           </div>
 
           {/* Add to Cart */}
           <div className=" ">
-            {selectedSize==null || selectedColor==null ?
-            <span className=" cursor-pointer w-full border border-gray-300 text-gray-800 py-3 px-6 rounded-md font-semibold hover:border-gray-500 hover:bg-gray-100 shadow-sm transition-all duration-300">
-              Select Size and colour to place order
-            </span>
-            :
-            <div className="flex flex-col sm:flex-row gap-2">
-            <button
-                onClick={()=>setIsOpenIntOrderModal(true)}
-                className={`text-sm w-full cursor-pointer py-2.5 px-6 rounded-sm font-semibold
+            {selectedSize == null || selectedColor == null ?
+              <span className=" cursor-pointer w-full border border-gray-300 text-gray-800 py-3 px-6 rounded-md font-semibold hover:border-gray-500 hover:bg-gray-100 shadow-sm transition-all duration-300">
+                Select Size and colour to place order
+              </span>
+              :
+              <div className="flex flex-col sm:flex-row gap-2">
+                <button
+                  onClick={() => setIsOpenIntOrderModal(true)}
+                  className={`text-sm w-full cursor-pointer py-2.5 px-6 rounded-sm font-semibold
                   shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-r
                     from-gray-900
                     to-gray-700 text-white hover:from-gray-800 hover:to-gray-600 `}
-              >
-                Buy Now
-              </button> 
+                >
+                  Buy Now
+                </button>
 
-     </div>
-          }
-           
-            
+              </div>
+            }
+
+
           </div>
 
           {/* Features */}
@@ -433,34 +436,34 @@ const handlewishList=()=>{
       {/* Product Description */}
       <div className="mb-16 overflow-hidden">
         <h2 className="text-2xl md:text-3xl font-bold text-[#3A9E75] mb-6">Product Description</h2>
-       <div
+        <div
           className="prose max-w-none text-gray-700 leading-relaxed"
           dangerouslySetInnerHTML={{ __html: product?.product?.description || "" }}
         />
 
       </div>
 
-     {/* Reviews Section */}
-       <div className="mb-16">
-        <Reviews reviews={product?.review}/>
-       </div>               
+      {/* Reviews Section */}
+      <div className="mb-16">
+        <Reviews reviews={product?.review} />
+      </div>
 
-     <RelatedProducts product={product} />
+      <RelatedProducts product={product} />
 
-      
+
 
       {/* Size Selection Modal */}
       <SizeGuide
         isOpen={isSizeModalOpen}
         onClose={() => setIsSizeModalOpen(false)}
-      
+
       />
-    
-    <InternationalOrderModal
-           isOpen={isOpenIntOrderModal}
-           setIsOpen={ setIsOpenIntOrderModal}
-          data={{  product,selectedSize,selectedColor,quantity,selectedColourSlug}}
-         />
+
+      <InternationalOrderModal
+        isOpen={isOpenIntOrderModal}
+        setIsOpen={setIsOpenIntOrderModal}
+        data={{ product, selectedSize, selectedColor, quantity, selectedColourSlug }}
+      />
 
       {/* Custom Styles */}
       <style jsx global>{`
@@ -498,16 +501,16 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-     
+
       <div className="aspect-square overflow-hidden">
         <img
-          src={getImageUrl("products",product?.color_icon)}
+          src={getImageUrl("products", product?.color_icon)}
           alt={product?.name}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
         />
       </div>
 
-     
+
       <div className="p-4">
         <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
           {product?.name}

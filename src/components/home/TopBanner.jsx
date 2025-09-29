@@ -11,7 +11,7 @@ const TopBanner = () => {
     title: "INTERNATIONAL ORDER ",
     subtitle: "AVAILABLE",
     buttonText: "Shop Now",
-    buttonLink: "/products",
+    buttonLink: "/international-shop",
     backgroundImage: "/images/banner/b1.png", // put a demo image in public/images
   };
 

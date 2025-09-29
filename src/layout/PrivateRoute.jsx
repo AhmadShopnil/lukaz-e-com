@@ -19,37 +19,12 @@ export default function PrivateRoute({ children }) {
   useEffect(() => {
 
 
-    if (state?.user) {
-      console.log("user inside login", state?.user)
-      setCheckingAuth(false);
-
-      if (!state?.user?.name) {
-
-        console.log("user not login", state?.user?.name)
-        router.replace("/login");
-      }
-
-    }
 
 
 
 
 
 
-
-    // if (state?.user?.name) {
-    //   setUser(state?.user)
-    //   console.log("user from if logged in", user)
-    //   setCheckingAuth(false);
-    // }
-    // // Simulate checking if user data is ready
-
-
-    //   if (state?.user  && !state?.user?.name ) {
-    //     console.log("user from ig not login", state?.user)
-    //     router.replace("/login");
-    //     setCheckingAuth(false);
-    //   }
 
 
   }, [ state]);

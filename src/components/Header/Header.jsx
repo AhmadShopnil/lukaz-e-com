@@ -99,11 +99,11 @@ export default function Header({ mainMenus, categories, notices }) {
               </button>
 
             </div>
-           <div className="w-[430px] flex justify-center">
-             <Link href="/" className="text-xl sm:text-2xl font-bold">
-              Lukaz
-            </Link>
-           </div>
+            <div className="w-[430px] flex justify-center">
+              <Link href="/" className="text-xl sm:text-2xl font-bold">
+                Lukaz
+              </Link>
+            </div>
             {/* Search + Icons */}
             <div className="w-full flex items-center justify-end gap-8   ">
 
@@ -136,14 +136,23 @@ export default function Header({ mainMenus, categories, notices }) {
                   </button>
 
                 }
-
-                <Link
+                {user?.name ? <Link
                   href="/dashboard"
                   className="p-1 sm:p-2 cursor-pointer"
                   title="Dashboard"
                 >
                   <User className="" size={23} />
                 </Link>
+                  :
+                  <Link
+                    href="/login"
+                    className="p-1 sm:p-2 cursor-pointer"
+                    title="Dashboard"
+                  >
+                    <User className="" size={23} />
+                  </Link>
+                }
+
 
 
               </div>

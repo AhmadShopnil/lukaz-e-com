@@ -100,9 +100,14 @@ export default function ProductCardShopPage({ product }) {
         </button>
       </div>
       <div className="p-3">
-        <p className="text-sm text-gray-500 font-medium mb-1">
-          {product?.brand_name || "No Brand Found"}
-        </p>
+        <div className="flex justify-between">
+          <p className="text-sm text-gray-500 font-medium mb-1">
+            {product?.brand_name || "No Brand Found"}
+          </p>
+          <p className="text-sm text-gray-500">
+            {JSON.parse(product?.product_size).length} Colours
+          </p>
+        </div>
         <Link
           href={`/product/${product?.slug}`}
           className="text-md font-semibold text-gray-800 mb-2"
@@ -114,13 +119,14 @@ export default function ProductCardShopPage({ product }) {
           href={`/product/${product?.slug}`}
           className="text-md font-semibold text-gray-800 mb-2"
         >
-          <div className="flex justify-between items-center">
+          <div className="flex gap-3 items-center mt-1">
+            {product?.regular_price && (<p className="text-sm font-bold text-gray-900 line-through">
+              Tk. {product?.regular_price}
+            </p>)}
             <p className="text-sm font-bold text-[#3A9E75]">
-              ৳ {product?.current_price.toFixed(2)}
+              Tk. {product?.current_price}
             </p>
-            <p className="text-sm text-gray-500">
-              {JSON.parse(product?.product_size).length} Colours
-            </p>
+
             {/* {product?.product_color && product?.product_color?.length > 0 && (
                                         <p className="text-sm text-gray-500">{product?.product_color?.length} Colours</p>
                                         )} */}

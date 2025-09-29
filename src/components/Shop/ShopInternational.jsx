@@ -1,8 +1,8 @@
-"use client" 
+"use client"
 
 
 import { useState, useRef, useEffect } from "react"
-import { ChevronDown } from "lucide-react" 
+import { ChevronDown } from "lucide-react"
 import Container from "@/components/shared/Container"
 import axiosInstance from "@/utils/axiosInstance"
 import { useFilter } from "@/context/FilterContext"
@@ -14,11 +14,11 @@ import { getItemById } from "@/utils/getItemById"
 import ProductCardInternational from "./ProductCardInternational"
 import Pagination from "../shared/Pagination"
 
-const allColors= ["white", "black", "red","green",]
+const allColors = ["white", "black", "red", "green",]
 
-export default function ShopInternational({brands,categories}) {
-   const { slug } = useParams();
-  const { state:filterProductState, dispatch:dispatchFilterProduct } = useFilter();
+export default function ShopInternational({ brands, categories }) {
+  const { slug } = useParams();
+  const { state: filterProductState, dispatch: dispatchFilterProduct } = useFilter();
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -28,13 +28,13 @@ export default function ShopInternational({brands,categories}) {
   const per_page = 12; // items per page
   // State for filter values
   const [searchTerm, setSearchTerm] = useState("")
-   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("") 
-  const [selectedCategory, setSelectedCategory] = useState("") 
-  const [selectedBrandName, setSelectedBrandName] = useState("") 
-  const [selectedCategoryName, setSelectedCategoryName] = useState("") 
-  const [selectedSize, setSelectedSize] = useState("") 
-  const [selectedColor, setSelectedColor] = useState("") 
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedBrandName, setSelectedBrandName] = useState("")
+  const [selectedCategoryName, setSelectedCategoryName] = useState("")
+  const [selectedSize, setSelectedSize] = useState("")
+  const [selectedColor, setSelectedColor] = useState("")
   const [sortOrder, setSortOrder] = useState("low_to_high") // 'featured', 'lowToHigh', 'highToLow'
   // Dropdown open states
   const [isBrandsDropdownOpen, setIsBrandsDropdownOpen] = useState(false)
@@ -49,25 +49,25 @@ export default function ShopInternational({brands,categories}) {
   const colorsRef = useRef(null)
   const priceSortRef = useRef(null)
 
-// console.log(" filter test:", filterProductState);
- // Fetch products whenever filters change
-   useEffect(() => {
+  // console.log(" filter test:", filterProductState);
+  // Fetch products whenever filters change
+  useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
-    }, 800); 
+    }, 800);
 
     return () => {
-      clearTimeout(handler); 
+      clearTimeout(handler);
     };
   }, [searchTerm]);
 
   useEffect(() => {
-   setSelectedColor(filterProductState?.color)
-   setSelectedBrand(filterProductState?.brand)
-   setSelectedCategory(filterProductState?.category)
-   setSelectedBrandName(getItemById(brands,filterProductState?.brand)?.name)
-   setSelectedCategoryName(getItemById(categories,filterProductState?.category)?.name)
-  
+    setSelectedColor(filterProductState?.color)
+    setSelectedBrand(filterProductState?.brand)
+    setSelectedCategory(filterProductState?.category)
+    setSelectedBrandName(getItemById(brands, filterProductState?.brand)?.name)
+    setSelectedCategoryName(getItemById(categories, filterProductState?.category)?.name)
+
   }, []);
 
 
@@ -84,16 +84,16 @@ export default function ShopInternational({brands,categories}) {
 
       // data fetching using search params
       setLoading(true)
-      const {data} = await axiosInstance.get(`/products?${query.toString()}&page=${currentPage}&per_page=${per_page}`);
-   
-     setProducts(data?.data);
-     const totalPages=data?.data?.last_page
-     setTotalPages(totalPages)
+      const { data } = await axiosInstance.get(`/products?${query.toString()}&page=${currentPage}&per_page=${per_page}`);
+
+      setProducts(data?.data);
+      const totalPages = data?.data?.last_page
+      setTotalPages(totalPages)
       setLoading(false)
     };
 
     fetchProducts();
-  }, [currentPage,debouncedSearchTerm,selectedColor,selectedBrand,selectedCategory,filterProductState]);
+  }, [currentPage, debouncedSearchTerm, selectedColor, selectedBrand, selectedCategory, filterProductState]);
 
 
   useEffect(() => {
@@ -101,7 +101,7 @@ export default function ShopInternational({brands,categories}) {
       if (brandsRef.current && !brandsRef.current.contains(event.target)) {
         setIsBrandsDropdownOpen(false)
       }
-       if (categoryRef.current && !categoryRef.current.contains(event.target)) {
+      if (categoryRef.current && !categoryRef.current.contains(event.target)) {
         setIsCategoryDropdownOpen(false)
       }
       if (sizesRef.current && !sizesRef.current.contains(event.target)) {
@@ -122,7 +122,7 @@ export default function ShopInternational({brands,categories}) {
   }, [])
 
   // Handlers for filter changes (now single selection)
-  const handleSearch =(search)=>{
+  const handleSearch = (search) => {
     setSearchTerm(search)
     dispatchFilterProduct({ type: "SET_SEARCH", payload: search });
   }
@@ -133,14 +133,14 @@ export default function ShopInternational({brands,categories}) {
     setSelectedBrandName(brand?.name)
     setIsBrandsDropdownOpen(false) // Close dropdown after selection
   }
-   const handleCategoryChange = (cat) => {
+  const handleCategoryChange = (cat) => {
     dispatchFilterProduct({ type: "SET_CATEGORIES", payload: cat?.id });
     setSelectedCategory((prev) => (prev === cat ? null : cat?.id))
     setSelectedCategoryName(cat?.name)
     setIsCategoryDropdownOpen(false) // Close dropdown after selection
   }
   const handleSizeChange = (size) => {
-    
+
     setSelectedSize((prev) => (prev === size ? null : size))
     setIsSizesDropdownOpen(false) // Close dropdown after selection
   }
@@ -149,47 +149,47 @@ export default function ShopInternational({brands,categories}) {
     setSelectedColor((prev) => (prev === color ? null : color))
     setIsColorsDropdownOpen(false) // Close dropdown after selection
   }
-   const handleSortByPrice = (sortby) => {
-     dispatchFilterProduct({ type: "SET_SORT", payload: sortby });
-     setSortOrder("low_to_high")
-     setIsPriceSortDropdownOpen(false)
+  const handleSortByPrice = (sortby) => {
+    dispatchFilterProduct({ type: "SET_SORT", payload: sortby });
+    setSortOrder("low_to_high")
+    setIsPriceSortDropdownOpen(false)
   }
   // for clear filters
-    const handleFilterState=()=>{
-          setSearchTerm("")
-          setSelectedBrand("") 
-          setSelectedSize("") 
-          setSelectedColor("") 
-          setSortOrder("")
-          setSelectedCategory("")
-          setSelectedBrandName("")
-          setSelectedCategoryName("")
-          dispatchFilterProduct({ type: "RESET_FILTERS" });
+  const handleFilterState = () => {
+    setSearchTerm("")
+    setSelectedBrand("")
+    setSelectedSize("")
+    setSelectedColor("")
+    setSortOrder("")
+    setSelectedCategory("")
+    setSelectedBrandName("")
+    setSelectedCategoryName("")
+    dispatchFilterProduct({ type: "RESET_FILTERS" });
 
-    }
+  }
 
 
-// console.log("product from shop page",products)
+  // console.log("product from shop page",products)
 
-    let productListSection;
-    if(loading){
-      
-      productListSection= <ProductListSkeleton/>
+  let productListSection;
+  if (loading) {
 
-    }
-    else{
-    productListSection=products?.data?.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {products?.data?.map((product,i) => (
-                <ProductCardInternational product={product} key={i}
-                />
+    productListSection = <ProductListSkeleton />
 
-              ))}
-            </div>
-          ) : (
-            <div className="text-center text-gray-600 text-lg py-10">No products found matching your criteria.</div>
-          )
-    }
+  }
+  else {
+    productListSection = products?.data?.length > 0 ? (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {products?.data?.map((product, i) => (
+          <ProductCardInternational product={product} key={i}
+          />
+
+        ))}
+      </div>
+    ) : (
+      <div className="text-center text-gray-600 text-lg py-10">No products found matching your criteria.</div>
+    )
+  }
 
 
   return (
@@ -199,7 +199,7 @@ export default function ShopInternational({brands,categories}) {
         <div className="grid grid-cols-1 sm:grid-cols-3  xl:grid-cols-5 2xl:grid-cols-5
          gap-4  mb-6">
           {/* Search Bar */}
-            <div className="">
+          <div className="">
             <label htmlFor="search" className="sr-only">
               Search Products
             </label>
@@ -215,7 +215,7 @@ export default function ShopInternational({brands,categories}) {
               onChange={(e) => handleSearch(e.target.value)}
             />
           </div>
-     
+
           {/* Price Sort Dropdown */}
           <div className="relative" ref={priceSortRef}>
             <button
@@ -279,11 +279,10 @@ export default function ShopInternational({brands,categories}) {
                     <button
                       key={brand?.slug}
                       className={`px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200
-                      ${
-                        selectedBrand === brand?.slug
+                      ${selectedBrand === brand?.slug
                           ? "bg-gray-800 text-white shadow-sm"
                           : "bg-[#ECF5F1] text-gray-700 hover:bg-[#e0f1e9]"
-                      }
+                        }
                       focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2`}
                       onClick={() => handleBrandChange(brand)}
                     >
@@ -294,7 +293,7 @@ export default function ShopInternational({brands,categories}) {
               </div>
             )}
           </div>
-             {/* Categories Filter Dropdown */}
+          {/* Categories Filter Dropdown */}
           <div className="relative" ref={categoryRef}>
             <button
               className="w-full h-10 px-4 py-2 border border-gray-300 rounded-md flex justify-between items-center
@@ -303,7 +302,7 @@ export default function ShopInternational({brands,categories}) {
                 focus:border-transparent transition-all duration-200"
               onClick={() => setIsCategoryDropdownOpen(!isCatgoryDropdownOpen)}
             >
-               {selectedCategoryName ? `Cat (${selectedCategoryName})` : "Categories"}
+              {selectedCategoryName ? `Cat (${selectedCategoryName})` : "Categories"}
               <ChevronDown className={`w-4 h-4 transition-transform ${isBrandsDropdownOpen ? "rotate-180" : ""}`} />
             </button>
             {isCatgoryDropdownOpen && (
@@ -313,11 +312,10 @@ export default function ShopInternational({brands,categories}) {
                     <button
                       key={cat}
                       className={`px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200
-                      ${
-                        selectedCategory === cat?.slug
+                      ${selectedCategory === cat?.slug
                           ? "bg-gray-800 text-white shadow-sm"
                           : "bg-[#ECF5F1] text-gray-700 hover:bg-[#e0f1e9]"
-                      }
+                        }
                       focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2`}
                       onClick={() => handleCategoryChange(cat)}
                     >
@@ -389,8 +387,8 @@ export default function ShopInternational({brands,categories}) {
                 </div>
               </div>
             )}
-          </div>  
-         
+          </div>
+
         </div>
 
         {/* Clear Filters Button */}
@@ -408,11 +406,11 @@ export default function ShopInternational({brands,categories}) {
       </div>
       {/* Product Grid */}
       {productListSection}
-            
+
       <Pagination
-       currentPage={currentPage}
-       totalPages={totalPages}
-       onPageChange={setCurrentPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
       />
     </Container>
   )
