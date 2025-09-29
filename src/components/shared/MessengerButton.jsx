@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { FaFacebookMessenger } from "react-icons/fa";
 
@@ -48,10 +49,17 @@ const MessengerButton = () => {
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleClick}
-          className="relative flex items-center justify-center w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition"
+          className="relative flex items-center justify-center w-20 h-20  bg-white  hover:bg-gray-100 text-white rounded-full shadow-lg transition"
           title="Message us on Messenger"
         >
-          <FaFacebookMessenger className="text-3xl" />
+                      <Image
+                        src="/images/others/support3.png"
+                        alt="visa"
+                        width={60}
+                        height={60}
+                        className=""
+                      />
+          {/* <FaFacebookMessenger className="text-3xl" /> */}
         </a>
       </div>
     </div>
