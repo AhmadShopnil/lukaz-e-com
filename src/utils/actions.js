@@ -87,6 +87,30 @@ export async function getBrands() {
   }
 }
 
+
+
+export async function getShopByGender() {
+  const API_URL = `${baseUrl}/api/shop-by`;
+
+  try {
+    const res = await fetch(API_URL, {
+      next: { revalidate: 30 }, 
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch brands: ${res.statusText}`);
+    }
+    
+    const json = await res.json();
+
+    return json || [];
+  } catch (error) {
+    console.error("Error fetching brands:", error);
+    return []; 
+  }
+}
+
+
 export async function getOutlets() {
   const API_URL = `${baseUrl}/api/outlates`;
 

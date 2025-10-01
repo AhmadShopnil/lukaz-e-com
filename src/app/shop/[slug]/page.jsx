@@ -1,15 +1,13 @@
-import ShopPage from '@/components/Shop/Shop'
-import { getBrands, getCategories } from '@/utils/actions'
+
+import ShopByCategories from '@/components/Shop/ShopByCategories'
 import React from 'react'
 
-export default async function page() {
-const brands=await getBrands()
-const categories=await getCategories()
+export default async function page({ params }) {
+ const { slug } =await params;
 
   return (
-    <div>
-    <ShopPage brands={brands} categories={categories} />
-
+    <div className=''>
+      <ShopByCategories slug={slug}/>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import GenderCategoryCard from '../shared/GenderCategoryCard';
+import { getShopByGender } from '@/utils/actions';
 
 
 const cardData = [
@@ -27,9 +28,10 @@ const cardData = [
   },
 ];
 
-export default function GenderCategoryList() {
+export default async function GenderCategoryList() {
 
-
+const shopbyGender=await getShopByGender()
+// console.log("shop by", shopbyGender)
 
   return (
   <div className='py-10'>
@@ -37,7 +39,7 @@ export default function GenderCategoryList() {
         <h1 className="font-semibold text-xl sm:text-2xl mb-2 space-grotesk ">Shop by</h1>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-      {cardData.map((item, idx) => (
+      {shopbyGender?.map((item, idx) => (
         <GenderCategoryCard
           key={idx}
          

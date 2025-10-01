@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react'
 
 const menuItems = [
-  { label: 'All Items', href: '/shop/all', },
+  { label: 'All Items', href: '/shop', },
   { label: "Men's", href: '/shop/mens',id:9 },
   { label: "Women's", href: '/shop/womens',id:11  },
   { label: "Kids'", href: '/shop/kids',id:20 },

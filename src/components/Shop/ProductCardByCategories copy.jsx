@@ -6,8 +6,11 @@ import Link from "next/link";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
 
-export default function ProductCardShopPage({ product }) {
+export default function ProductCardByCategories({ product,productFullData,cardHeight }) {
   const { state, dispatch } = useContext(WishListContext);
+
+console.log("product from cate",product)
+
 
   const isInWishlist = (slug) => {
     const exists = state.items.find(
@@ -43,7 +46,7 @@ export default function ProductCardShopPage({ product }) {
 
   };
 
-
+const heigth=40
 
   // console.log("product", product)
 
@@ -52,10 +55,10 @@ export default function ProductCardShopPage({ product }) {
 
       className="bg-white rounded-sm  overflow-hidden transform transition-all duration-300 hover:shadow-lg  cursor-pointer"
     >
-      <div className="relative w-full h-80 ">
+      <div className={`relative w-full h-${cardHeight} `}>
         <Link href={`/product/${product?.slug}`}>
           <Image
-            src={getImageUrl("products", product?.color_thumbnails)}
+            src={getImageUrl("products", productFullData?.color_thumbnails)}
             alt="product image"
             fill
             style={{ objectFit: "cover" }}
@@ -101,9 +104,9 @@ export default function ProductCardShopPage({ product }) {
       </div>
       <div className="p-3">
         <div className="flex justify-between">
-          <p className="text-sm text-gray-500 font-medium mb-1">
+          {/* <p className="text-sm text-gray-500 font-medium mb-1">
             {product?.brand_name || "No Brand Found"}
-          </p>
+          </p> */}
           {/* <p className="text-sm text-gray-500">
             {JSON.parse(product?.product_size).length} Colours
           </p> */}
@@ -112,7 +115,7 @@ export default function ProductCardShopPage({ product }) {
           href={`/product/${product?.slug}`}
           className="text-md font-semibold text-gray-800 mb-2"
         >
-          {product?.product_name}
+          {product?.name}
         </Link>
 
         <Link

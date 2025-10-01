@@ -69,7 +69,8 @@ export default function Header({ mainMenus, categories, notices }) {
   const handleMenuItem = (item) => {
     dispatchFilterProduct({ type: "SET_CATEGORIES", payload: item?.id })
     setIsMenuOpen((prev) => !prev)
-    router.push(`/shop/${item?.slug}`);
+     router.push(`/shop`);
+    // router.push(`/shop/${item?.slug}`);
   }
 
   const handleHoverItem = (item) => {
@@ -187,12 +188,12 @@ export default function Header({ mainMenus, categories, notices }) {
                     onMouseEnter={() => handleHoverItem(item)}
                     onClick={() => setHoveredItem(hoveredItem?.slug === item?.slug ? null : item?.slug)}
                   >
-                    <Link
-                      href={`/shop/${item?.slug}`}
+                    <p
+                      // href={`/shop/${item?.slug}`}
                       onClick={() => handleMenuItem(item)}
                     >
                       {item?.name}
-                    </Link>
+                    </p>
                     {item?.childs?.length > 0 && <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />}
 
                   </li>
@@ -213,20 +214,23 @@ export default function Header({ mainMenus, categories, notices }) {
                   <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-7 lg:gap-10 pb-4">
                     {subMenuList?.map((item, i) => (
                       <div key={i} className="min-w-0 mt-6">
-                        <h4 className="font-semibold text-gray-800 cursor-pointer hover:text-[#3A9E75] text-sm sm:text-base mb-2 sm:mb-4">
-                          {item?.name}
+                        <h4 
+                        // href={`/shop/${item?.slug}`}
+                        onClick={() => handleMenuItem(item)}
+                        className="font-semibold text-gray-800 cursor-pointer hover:text-[#3A9E75] text-sm sm:text-base mb-2 sm:mb-4">
+                          {item?.name} 
                         </h4>
                         <ul className="space-y-1.5 sm:space-y-2.5 text-xs sm:text-sm text-gray-600">
                           {item?.childs.map((item, j) => (
                             <li
 
                               key={j} className="hover:text-[#3A9E75] cursor-pointer truncate">
-                              <Link
+                              <p
                                 href={`/shop/${item?.slug}`}
                                 onClick={() => handleMenuItem(item)}
                               >
                                 {item?.name}
-                              </Link>
+                              </p>
 
                             </li>
                           ))}
