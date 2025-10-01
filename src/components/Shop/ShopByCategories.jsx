@@ -19,7 +19,7 @@ export default function ShopByCategories({ slug }) {
   const [gridCols, setGridCols] = useState(5); // Default for mobile
   const [availableGridOptions, setAvailableGridOptions] = useState([2, 3, 4]); // Adjust dynamically based on screen size
 
-  const per_page = 2;
+  const per_page = 15;
 
   // Dynamic card heights for different layouts
   const cardHeights = {

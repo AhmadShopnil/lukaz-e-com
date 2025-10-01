@@ -66,6 +66,17 @@ export default function Header({ mainMenus, categories, notices }) {
   };
 
 
+const handleClickParentMenuItem=(item)=>{
+if(item?.childs?.length > 0){
+setHoveredItem(hoveredItem?.slug === item?.slug ? null : item)
+}
+else{
+  handleMenuItem(item)
+}
+
+
+}
+
   const handleMenuItem = (item) => {
     dispatchFilterProduct({ type: "SET_CATEGORIES", payload: item?.id })
     setIsMenuOpen((prev) => !prev)
@@ -80,7 +91,6 @@ export default function Header({ mainMenus, categories, notices }) {
     else {
       setHoveredItem(null)
     }
-
 
   }
 
@@ -186,11 +196,12 @@ export default function Header({ mainMenus, categories, notices }) {
                        py-3 sm:py-4 hover:bg-gray-100 hover:text-[#3A9E75] cursor-pointer whitespace-nowrap ${hoveredItem === item?.slug ? "bg-gray-100 font-semibold" : ""
                       }`}
                     onMouseEnter={() => handleHoverItem(item)}
-                    onClick={() => setHoveredItem(hoveredItem?.slug === item?.slug ? null : item?.slug)}
+                    onClick={ ()=>handleClickParentMenuItem(item)}
+                    // onClick={() => setHoveredItem(hoveredItem?.slug === item?.slug ? null : item)}
                   >
                     <p
                       // href={`/shop/${item?.slug}`}
-                      onClick={() => handleMenuItem(item)}
+                      // onClick={() => handleMenuItem(item)}
                     >
                       {item?.name}
                     </p>
@@ -246,6 +257,7 @@ export default function Header({ mainMenus, categories, notices }) {
             {/* Bottom Info Bar */}
             {hoveredItem && (
               <div className="sticky bottom-0 w-full px-4 sm:px-6 py-3 sm:py-4 bg-[#E6F2ED] text-[#3A9E75] ">
+              
                 <MegaMenuBottomBar />
               </div>
             )}

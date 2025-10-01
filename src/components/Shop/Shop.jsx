@@ -25,7 +25,7 @@ export default function ShopPage({ brands, categories }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const per_page = 12; // items per page
+  const per_page = 15; // items per page
   // State for filter values
   const [searchTerm, setSearchTerm] = useState("")
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
