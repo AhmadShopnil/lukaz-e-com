@@ -70,21 +70,22 @@ export default function ShopByBrandsSlider({brands}) {
             className="group h-[350px] rounded-md bg-cover bg-center relative overflow-hidden cursor-pointer">
                   <Link
                   onClick={()=>handleFilter(item?.id)}
-                  href={`/shop/${item?.slug}`}
+                  href={`/shop`}
                     className="absolute inset-0 bg-center bg-cover transition-transform duration-700 scale-100 group-hover:scale-105"
                     style={{ backgroundImage: `url(${getImageUrl("brand",item?.thumbnail)})` }}
                   ></Link>
                     {/* dark overlay */}
                   <Link 
                    onClick={()=>handleFilter(item?.id)}
-                   href={`/shop/${item?.slug}`}
+                    href={`/shop`}
+                  //  href={`/shop/${item?.slug}`}
                   className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
                    
                   </Link>
 
                   <Link 
                    onClick={()=>handleFilter(item?.id)}
-                  href={`/shop/${item?.slug}`}
+                  href={`/shop`}
                   className="absolute text-center bottom-7 left-4 right-4 text-white text-2xl font-bold space-grotesk">
                     {item.name}
                   </Link>

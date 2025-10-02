@@ -154,7 +154,7 @@ export default function ProductDetails({ product }) {
 
   }
 
-// console.log("product details", product)
+  // console.log("product details", product)
 
 
 
@@ -245,16 +245,19 @@ export default function ProductDetails({ product }) {
           </Swiper>
 
           {/* Thumbnail Navigation */}
-          <div className="">
+          <div className=" ">
             <Swiper
               onSwiper={setThumbsSwiper}
-              spaceBetween={10}
-              slidesPerView={4}
               watchSlidesProgress
               className="thumbs-swiper"
+              breakpoints={{
+                320: { slidesPerView: 4, spaceBetween: 2 }, 
+                640: { slidesPerView: 5, spaceBetween: 2 },  
+                1024: { slidesPerView: 6, spaceBetween: 2 },  
+              }}
             >
               {product?.gallaries?.map((item, index) => (
-                <SwiperSlide key={index} className="cursor-pointer">
+                <SwiperSlide key={index} className="cursor-pointer ">
                   <div
                     onClick={() => handleColorSelect(item)}
                     className={`aspect-square rounded-lg overflow-hidden w-18 h-18 sm:w-24 sm:h-24  hover:border-teal-700  ${selectedColor === item?.color
@@ -264,7 +267,7 @@ export default function ProductDetails({ product }) {
                       }`}>
                     <img
                       src={getImageUrl("products", item?.color_icon)}
-                      // src={image || "/placeholder.svg"}
+
                       alt={`Thumbnail ${index + 1}`}
                       className="w-full h-full object-cover border-2 border-gray-300 rounded-lg"
                     />
@@ -503,7 +506,7 @@ export default function ProductDetails({ product }) {
       }
 
 
-      <ShipingTimeLine/>
+      <ShipingTimeLine />
 
       {/* Reviews Section */}
       <div className="mb-16">

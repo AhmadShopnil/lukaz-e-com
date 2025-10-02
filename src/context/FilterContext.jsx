@@ -9,7 +9,7 @@ const initialState = {
   brand: "",
   category:"",
   priceRange: "",
-  sort: "",
+  sort: "low_to_high",
   search: "",
   color:""
 };

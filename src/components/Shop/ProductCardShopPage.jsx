@@ -80,14 +80,13 @@ export default function ProductCardShopPage({ product }) {
           </span>
 
         )
-
-
         }
+
         <button
           onClick={() => handleWishList(product)}
           className="absolute top-4 right-4 bg-white p-2 rounded-full 
-                                        shadow-sm hover:scale-105 transition-transform focus:outline-none
-                                        focus:ring-2 focus:ring-gray-300 cursor-pointer"
+                     shadow-sm hover:scale-105 transition-transform focus:outline-none
+                      focus:ring-2 focus:ring-gray-300 cursor-pointer"
           aria-label="Add to wishlist"
         >
           {isInWishlist(product?.slug) ? (
@@ -96,7 +95,6 @@ export default function ProductCardShopPage({ product }) {
             <Heart />
           )}
 
-          {/* <Heart className="w-5 h-5 text-gray-700" /> */}
         </button>
       </div>
       <div className="p-3">
@@ -104,9 +102,7 @@ export default function ProductCardShopPage({ product }) {
           <p className="text-sm text-gray-500 font-medium mb-1">
             {product?.brand_name || "No Brand Found"}
           </p>
-          {/* <p className="text-sm text-gray-500">
-            {JSON.parse(product?.product_size).length} Colours
-          </p> */}
+
         </div>
         <Link
           href={`/product/${product?.slug}`}
@@ -127,9 +123,7 @@ export default function ProductCardShopPage({ product }) {
               Tk. {product?.current_price}
             </p>
 
-            {/* {product?.product_color && product?.product_color?.length > 0 && (
-                                        <p className="text-sm text-gray-500">{product?.product_color?.length} Colours</p>
-                                        )} */}
+
           </div>
         </Link>
       </div>

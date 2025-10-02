@@ -51,17 +51,25 @@ export default function ProductCardByCategories({ product, productFullData }) {
         </Link>
 
         {/* Discount Badge */}
-        {product?.regular_price && product?.discount_type === 1 && (
-          <span className="absolute top-5 right-4 bg-black text-white px-3 py-1  text-xs font-medium shadow-sm">
-            -{Math.floor((100 / product?.regular_price) * product?.discount)}%
-          </span>
-        )}
+      {(product?.regular_price && product?.discount_type == 1) && (
 
-        {product?.regular_price && product?.discount_type !== 1 && (
-          <span className="absolute top-4 right-4 bg-black text-white px-3 py-1  text-xs font-medium shadow-sm">
+
+          <span className="absolute top-5 left-4 bg-black text-white px-3 py-1 rounded-md text-xs font-medium shadow-sm">
+            -{Math.floor(100 / product?.regular_price * product?.discount)}%
+          </span>
+        )
+
+        }
+
+
+        {(product?.regular_price && product?.discount_type != 1) && (
+
+          <span className="absolute top-4 left-4 bg-black text-white px-3 py-1 rounded-md text-xs font-medium shadow-sm">
             -{product?.discount}
           </span>
-        )}
+
+        )
+        }
 
         {/* Wishlist Button */}
         {/* <button

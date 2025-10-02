@@ -84,7 +84,7 @@ export default function ShopInternational({ brands, categories }) {
 
       // data fetching using search params
       setLoading(true)
-      const { data } = await axiosInstance.get(`/products?${query.toString()}&page=${currentPage}&per_page=${per_page}`);
+      const { data } = await axiosInstance.get(`/products?international=1&${query.toString()}&page=${currentPage}&per_page=${per_page}`);
 
       setProducts(data?.data);
       const totalPages = data?.data?.last_page
@@ -151,7 +151,7 @@ export default function ShopInternational({ brands, categories }) {
   }
   const handleSortByPrice = (sortby) => {
     dispatchFilterProduct({ type: "SET_SORT", payload: sortby });
-    setSortOrder("low_to_high")
+    setSortOrder(sortby)
     setIsPriceSortDropdownOpen(false)
   }
   // for clear filters
@@ -216,7 +216,7 @@ export default function ShopInternational({ brands, categories }) {
             />
           </div>
 
-          {/* Price Sort Dropdown */}
+         {/* Price Sort Dropdown */}
           <div className="relative" ref={priceSortRef}>
             <button
               className="w-full h-10 px-4 py-2 border border-gray-300 rounded-md
@@ -227,23 +227,16 @@ export default function ShopInternational({ brands, categories }) {
               onClick={() => setIsPriceSortDropdownOpen(!isPriceSortDropdownOpen)}
             >
               Sort by:{" "}
-              {sortOrder === "lowToHigh" ? "Low to High" : sortOrder === "highToLow" ? "High to Low" : "Featured"}
+              {sortOrder === "low_to_high" ? "Low to High" : sortOrder === "high_to_low" ? "High to Low" : "Featured"}
               <ChevronDown className={`w-4 h-4 transition-transform ${isPriceSortDropdownOpen ? "rotate-180" : ""}`} />
             </button>
             {isPriceSortDropdownOpen && (
               <div className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-lg py-1">
-                {/* <button
-                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  onClick={() => {
-                   handleSortByPrice("")
-                  }}
-                >
-                  Featured
-                </button> */}
+
                 <button
                   className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   onClick={() => {
-                    handleSortByPrice(low_to_high)
+                    handleSortByPrice("low_to_high")
                   }}
                 >
                   Low to High
@@ -251,7 +244,7 @@ export default function ShopInternational({ brands, categories }) {
                 <button
                   className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   onClick={() => {
-                    handleSortByPrice(high_to_low)
+                    handleSortByPrice("high_to_low")
                   }}
                 >
                   High to Low

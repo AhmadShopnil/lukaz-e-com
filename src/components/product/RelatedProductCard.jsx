@@ -5,6 +5,8 @@ import { WishListContext } from "@/context/WishListContext";
 import { useContext } from "react";
 import { Heart } from "lucide-react";
 import toast from "react-hot-toast";
+import Link from "next/link";
+import Image from "next/image";
 
 export const RelatedProductCard = ({ product }) => {
   const { state, dispatch } = useContext(WishListContext);
@@ -36,46 +38,84 @@ export const RelatedProductCard = ({ product }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow relative">
-      {/* Wishlist Button */}
-      <button
-        onClick={() => handleWishList(product)}
-        className={`cursor-pointer absolute top-3 right-3 z-10 p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition ${
-          isInWishlist(product?.slug) ? "text-red-500" : "text-gray-600"
-        }`}
-      >
-        <Heart
-          className={`w-5 h-5 ${
-            isInWishlist(product?.slug) ? "fill-red-500 text-red-500" : ""
-          }`}
-        />
-      </button>
+    <div
 
-      {/* Product Image */}
-      <div className="aspect-square overflow-hidden">
-        <img
-          src={getImageUrl("products", product?.color_thumbnails)}
-          alt={product?.product_name}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-        />
-      </div>
+      className="bg-white rounded-sm  overflow-hidden transform transition-all duration-300 hover:shadow-lg  cursor-pointer"
+    >
+      <div className="relative w-full h-80 ">
+        <Link href={`/product/${product?.slug}`}>
+          <Image
+            src={getImageUrl("products", product?.color_thumbnails)}
+            alt="product image"
+            fill
+            style={{ objectFit: "cover" }}
+            className="rounded-t-sm"
+          />
+        </Link>
+        {(product?.regular_price && product?.discount_type == 1) && (
 
-      {/* Product Info */}
-      <div className="p-4">
-        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
-          {product?.product_name}
-        </h3>
 
-        <div className="flex items-center gap-2">
-          <span className="font-bold text-gray-900">
-            TK. {product?.current_price}
+          <span className="absolute top-5 left-4 bg-black text-white px-3 py-1 rounded-full text-xs font-medium shadow-sm">
+            -{Math.floor(100 / product?.regular_price * product?.discount)}%
           </span>
-          {product?.regular_price && (
-            <span className="text-sm text-gray-500 line-through">
-              TK. {product?.regular_price}
-            </span>
+        )
+
+        }
+
+
+        {(product?.regular_price && product?.discount_type != 1) && (
+
+          <span className="absolute top-4 left-4 bg-black text-white px-3 py-1 rounded-full text-xs font-medium shadow-sm">
+            -{product?.discount}
+          </span>
+
+        )
+        }
+        
+        <button
+          onClick={() => handleWishList(product)}
+          className="absolute top-4 right-4 bg-white p-2 rounded-full 
+                                        shadow-sm hover:scale-105 transition-transform focus:outline-none
+                                        focus:ring-2 focus:ring-gray-300 cursor-pointer"
+          aria-label="Add to wishlist"
+        >
+          {isInWishlist(product?.slug) ? (
+            <Heart fill="red" stroke="red" />
+          ) : (
+            <Heart />
           )}
+
+          {/* <Heart className="w-5 h-5 text-gray-700" /> */}
+        </button>
+      </div>
+      <div className="p-3">
+        <div className="flex justify-between">
+          <p className="text-sm text-gray-500 font-medium mb-1">
+            {product?.brand_name || "No Brand Found"}
+          </p>
+
         </div>
+        <Link
+          href={`/product/${product?.slug}`}
+          className="text-md font-semibold text-gray-800 mb-2"
+        >
+          {product?.product_name}
+        </Link>
+
+        <Link
+          href={`/product/${product?.slug}`}
+          className="text-md font-semibold text-gray-800 mb-2"
+        >
+          <div className="flex gap-3 items-center mt-1">
+            {product?.regular_price && (<p className="text-sm font-bold text-gray-900 line-through">
+              Tk. {product?.regular_price}
+            </p>)}
+            <p className="text-sm font-bold text-[#3A9E75]">
+              Tk. {product?.current_price}
+            </p>
+
+          </div>
+        </Link>
       </div>
     </div>
   );
