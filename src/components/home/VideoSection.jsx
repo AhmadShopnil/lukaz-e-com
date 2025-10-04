@@ -38,7 +38,7 @@ const VideoSection = async ({video}) => {
        
             {videoInfo.buttonText && (
               <Link 
-              href="/shop/all"
+              href={video?.button_link}
                  className=" space-grotesk text-white font-semibold px-4 sm:px-8 py-1.5 sm:py-3 
                     rounded-md border border-white shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out sm:mt-4
                      text-xs sm:text-lg md:text-xl hover:border-[#3A9E75] hover:bg-[#3A9E75]">

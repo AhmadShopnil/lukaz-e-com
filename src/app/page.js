@@ -51,7 +51,7 @@ export default async function Home() {
 
       </Container>
 
-      <VideoSection video={videos[0]} />
+      <VideoSection video={videos[1]} />
 
 
       <Container>
