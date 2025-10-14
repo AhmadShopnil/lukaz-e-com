@@ -3,40 +3,6 @@ import { getImageUrl } from "@/utils/helpers";
 import Image from "next/image";
 import React from "react";
 
-const outlets = [
-  {
-    name: "Basundhara City Complex",
-    image: "/images/outlets/basundhara-city.jpg",
-  },
-  {
-    name: "Dhanmondi",
-    image: "/images/outlets/dhanmondi.jpg",
-  },
-  {
-    name: "Jamuna Future Park",
-    image: "/images/outlets/jamuna.jpg",
-  },
-  {
-    name: "Rajshahi",
-    image: "/images/outlets/rajshahi.jpg",
-  },
-  {
-    name: "Sylhet",
-    image: "/images/outlets/sylhet.jpg",
-  },
-  {
-    name: "Khulna",
-    image: "/images/outlets/khulna.jpg",
-  },
-  {
-    name: "Chittagong",
-    image: "/images/outlets/chittagong.jpg",
-  },
-  {
-    name: "Basundhara City Women",
-    image: "/images/outlets/basundhara-women.jpg",
-  },
-];
 
 const OutletsSection = async() => {
 
@@ -44,7 +10,7 @@ const outlets= await getOutlets()
 
 
   return (
-    <section className="bg-[#f8fcff] py-12">
+    <section className="bg-[#f8fcff] pt-12 pb-4 md:pb-12 ">
       <div className="max-w-6xl mx-auto px-4">
         {/* Title */}
         <div className="flex items-center justify-center mb-10">
@@ -58,7 +24,7 @@ const outlets= await getOutlets()
         </div>
 
         {/* Outlets Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-4 md:gap-6">
           {outlets?.data?.map((outlet, index) => (
             <div key={index} className="text-center">
               <div className="w-full h-34 sm:h-52 md:h-64 relative">

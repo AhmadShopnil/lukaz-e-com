@@ -5,12 +5,12 @@ import React from "react";
 const VideoSection = async ({video}) => {
   // const videos = await getVideos();
 
-  const videoInfo = {
-    videoId: "qVzXhG1mf_8", // Demo YouTube video ID
-    title: "Discover the Latest Trends",
-    subtitle: "Watch our product highlights in action",
-    buttonText: "Shop Now",
-  };
+  // const videoInfo = {
+  //   videoId: "qVzXhG1mf_8", // Demo YouTube video ID
+  //   title: "Discover the Latest Trends",
+  //   subtitle: "Watch our product highlights in action",
+  //   buttonText: "Shop Now",
+  // };
 
   return (
     <section className="w-full bg-black">
@@ -36,7 +36,7 @@ const VideoSection = async ({video}) => {
            
               <p className="text-white text-lg mb-4 space-grotesk">{video?.description}</p>
        
-            {videoInfo.buttonText && (
+            {video?.button_text && (
               <Link 
               href={video?.button_link}
                  className=" space-grotesk text-white font-semibold px-4 sm:px-8 py-1.5 sm:py-3 

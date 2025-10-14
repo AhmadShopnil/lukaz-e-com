@@ -26,7 +26,7 @@ const CategoriesGrid = ({ categories }) => {
       </div>
 
       <div className="mx-auto max-w-[1640px] px-3 sm:px-4 md:px-16 grid grid-cols-2 sm:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
-        {categories.slice(5, 15).map((category, idx) => (
+        {categories.slice(0, 15).map((category, idx) => (
 
 
           <div

@@ -182,11 +182,12 @@ export default function RatingSlider({reviews}) {
       {/* Rating Summary */}
       <div className=" flex flex-col justify-center items-center gap-2 text-center mb-6">
         <p className="text-gray-700 text-sm">
-          Rated <span className="font-semibold">{parseFloat(reviews?.avarage).toFixed(1)}</span> / 5 based on <span className="font-semibold">{reviews?.all_rattings}</span>{" "}
+          Rated <span className="font-semibold">{reviews?.avarage ? <span>{parseFloat(reviews?.avarage).toFixed(1) }</span>:"0"} </span> / 5 based on <span className="font-semibold">{reviews?.all_rattings}</span>{" "}
           reviews. Showing our 5 star reviews.
         </p>
         <div className="mt-2">
           {/* <TrustpilotLogo /> */}
+          
         </div>
       </div>
 

@@ -50,7 +50,7 @@ export default function Outlets({ outlets }) {
             className="bg-white rounded-md shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
           >
             {/* Branch Image */}
-            <div className="relative w-full h-48 bg-green-200">
+            <div className="relative w-full h-90 bg-green-200">
               <Image
                 src={getImageUrl("branch", outlet?.image) || "/placeholder.svg"}
                 alt={outlet?.name}
