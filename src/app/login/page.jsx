@@ -2,19 +2,22 @@
 
 import { useContext, useState } from "react"
 import Link from "next/link"
-import {  Lock, Phone,Loader2   } from "lucide-react"
+import { Lock, Phone, Loader2 } from "lucide-react"
 import axiosInstance from "@/utils/axiosInstance"
 import { UserContext } from "@/context/UserContext"
 import { useRouter } from "next/navigation"
+import ForgotPasswordModal from "@/components/Auth/ForgotPasswordModal"
 
 export default function LoginPage() {
-  const {  dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
   const router = useRouter()
   const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false);
-   
+  const [showForgotModal, setShowForgotModal] = useState(false);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError("")
@@ -24,21 +27,21 @@ export default function LoginPage() {
       return
     }
 
-  try {
+    try {
       setLoading(true);
-      const payloadData={
+      const payloadData = {
         mobile: phone,
         password: password,
       }
       const res = await axiosInstance.post("/login", payloadData);
       const { token, data } = res.data;
-     
+
       const user = {
         name: data?.name,
         email: data?.email || "No Email Added",
         phone: data?.mobile,
       };
-   
+
       dispatch({ type: "LOGIN", payload: { user, token: token } });
       // console.log("loggedin user:", user)
       localStorage.setItem("token", token);
@@ -57,8 +60,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className=" flex items-center justify-center bg-gray-100 px-4 sm:px-6 py-8 sm:py-14">
-      <div className="min-h-screen bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden md:grid md:grid-cols-2 border border-gray-200">
+    <div className=" flex items-center justify-center bg-gray-100 px-2 sm:px-4 md:px-6 py-8 sm:py-14">
+      <div className=" bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden md:grid md:grid-cols-2 border border-gray-200">
         {/* Left Column */}
         <div className="hidden md:flex items-center justify-center p-8 bg-[#3A9E75] relative text-white text-center">
           <div>
@@ -70,7 +73,7 @@ export default function LoginPage() {
         </div>
 
         {/* Right Column: Login Form */}
-        <div className="p-8 lg:p-12 flex flex-col justify-center">
+        <div className="p-8 lg:p-12 flex flex-col justify-center ">
           <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Login</h1>
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
@@ -116,7 +119,7 @@ export default function LoginPage() {
 
             {error && <p className="text-sm text-red-600 text-center">{error}</p>}
 
-            <div className="flex items-center justify-between text-sm">
+            <div className="flex flex-col sm:flex-row md:items-center justify-between text-sm gap-2">
               <div className="flex items-center">
                 <input
                   id="remember-me"
@@ -128,25 +131,31 @@ export default function LoginPage() {
                   Remember me
                 </label>
               </div>
-              <a href="#" className="font-medium text-[#3A9E75] hover:text-[#318b66]">
+              <a href="#" className="font-medium text-[#3A9E75] hover:text-[#318b66]"
+
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowForgotModal(true);
+                }}
+              >
                 Forgot your password?
               </a>
             </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-[#3A9E75] hover:bg-[#318b66] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3A9E75] transition-colors duration-200 disabled:opacity-70"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                    Logging in...
-                  </>
-                ) : (
-                  "Login"
-                )}
-              </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-[#3A9E75] hover:bg-[#318b66] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3A9E75] transition-colors duration-200 disabled:opacity-70"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  Logging in...
+                </>
+              ) : (
+                "Login"
+              )}
+            </button>
 
           </form>
 
@@ -190,6 +199,12 @@ export default function LoginPage() {
           </div> */}
         </div>
       </div>
+
+      <ForgotPasswordModal
+        isOpen={showForgotModal}
+        onClose={() => setShowForgotModal(false)}
+      />
+
     </div>
   )
 }
