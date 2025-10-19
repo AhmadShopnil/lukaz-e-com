@@ -119,7 +119,7 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
                         <form onSubmit={handleRequestReset} className="space-y-4">
                             <div>
                                 <label className="block text-sm text-gray-700 mb-1">
-                                    Enter Your Phone Number
+                                    Enter Your Email or Phone Number
                                 </label>
                                 <input
                                     type="text"
