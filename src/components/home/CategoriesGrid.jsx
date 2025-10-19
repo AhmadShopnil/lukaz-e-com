@@ -13,8 +13,8 @@ const CategoriesGrid = ({ categories }) => {
 
 
   const handleFilter = (cat) => {
-    // dispatchFilterProduct({ type: "SET_COLOR", payload: "red" });
-    dispatchFilterProduct({ type: "SET_CATEGORIES", payload: cat });
+    
+    // dispatchFilterProduct({ type: "SET_CATEGORIES", payload: cat });
   }
 
 

@@ -24,10 +24,10 @@ export default function SecondMenu() {
 const { dispatch:dispatchFilterProduct } = useFilter();
 
 const handleCategoryFilter=(item)=>{
-    // dispatchFilterProduct({ type: "SET_COLOR", payload: "red" });
-    if(item?.id){
-    dispatchFilterProduct({ type: "SET_CATEGORIES", payload: item?.id });
-    }
+    
+    // if(item?.id){
+    // dispatchFilterProduct({ type: "SET_CATEGORIES", payload: item?.id });
+    // }
    
     }
 
