@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useContext } from "react"
 import Image from "next/image"
 import Container from "@/components/shared/Container"
-import { ChevronDown, Minus, Plus } from "lucide-react"
+import { ChevronDown, Loader2, Minus, Plus } from "lucide-react"
 import CustomSelectInput from "@/components/shared/CustomSelectInput"
 import Link from "next/link"
 import toast from "react-hot-toast"
@@ -35,9 +35,10 @@ export default function CartCheckoutPage() {
   const [shippingCharge, setShippingCharge] = useState(0)
   const [discountAmount, setDiscountAmount] = useState(0)
   const [isPreOrderItemInCart, setIsPreOrderItemInCart] = useState(0)
-  const [loading, setLoading]=useState(false)
+  const [loading, setLoading] = useState(false)
+  const [applyCuponLoading, setApplyCuponLoading] = useState(false)
 
-  // State to manage which dropdown is open
+  // State to manage which dropdown is open,
   const [openDropdown, setOpenDropdown] = useState(null)
   // Payment Method State
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("sslcommerz")
@@ -192,6 +193,7 @@ export default function CartCheckoutPage() {
 
 
   const applyPromoCode = async () => {
+    setApplyCuponLoading(true)
     try {
       const { data } = await axiosInstance.post("/get-discount", {
         promo_code: cuponCode
@@ -207,10 +209,16 @@ export default function CartCheckoutPage() {
         }
 
       }
-      // console.log("promo code res",data)
+      else {
+        setDiscountAmount(data?.discount)
+      }
+      console.log("promo code res", data)
       // setDiscountAmount(data?.discount)
     } catch (error) {
       console.log("faild to get discount by promo code", error)
+    }
+    finally {
+      setApplyCuponLoading(false)
     }
   }
 
@@ -299,11 +307,11 @@ export default function CartCheckoutPage() {
       } catch (error) {
         console.error("Error placing order:", error);
         toast.error("Something went wrong while placing the order.");
-      }finally{
-         setLoading(false)
+      } finally {
+        setLoading(false)
       }
     } else {
-       setLoading(false)
+      setLoading(false)
       alert("Please fill in all required shipping details")
     }
   };
@@ -589,7 +597,13 @@ export default function CartCheckoutPage() {
               </div>
               <div className="flex justify-between text-lg font-bold text-gray-800 border-t pt-1 mt-1.5">
                 <span>Total:</span>
-                <span>{grandTotal.toFixed(2)}৳</span>
+                {
+                  grandTotal > 0 ?
+                    <span>{grandTotal.toFixed(2)}৳</span>
+                    :
+                    <span>000 ৳</span>
+                }
+                {/* <span>{grandTotal.toFixed(2)}৳</span> */}
               </div>
             </div>
             {/* Promo Code Section */}
@@ -611,7 +625,11 @@ export default function CartCheckoutPage() {
                   rounded-r-md"
                   onClick={applyPromoCode}
                 >
-                  Apply
+                  {applyCuponLoading ? (
+                    <Loader2 className="animate-spin w-4 h-4" />
+                  ) : (
+                    "Apply"
+                  )}
                 </button>
               </div>
             </div>
@@ -724,7 +742,7 @@ export default function CartCheckoutPage() {
                   transition-colors duration-200 bg-[#3A9E75] text-white
                    hover:bg-[#2f5143] focus:outline-none focus:ring-2 cursor-pointer `}
               >
-                 {loading? "Loading..":"Pay Now"}
+                {loading ? "Loading.." : "Pay Now"}
               </button>
 
             </div>
