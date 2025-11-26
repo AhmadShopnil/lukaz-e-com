@@ -318,11 +318,10 @@ export default function CartCheckoutPage() {
 
   return (
     <div className="min-h-screen bg-[#ECF5F1]">
-      <Container className=" py-5">
+      <Container className=" py-8">
         <div className="flex flex-col md:flex-row gap-4 md:gap-2 lg:gap-4">
           {/* Left Column: Shipping Details */}
-          <div className="md:w-[40%] lg:w-[50%]  sm:bg-white p-1 sm:py-4
-           sm:px-5 sm:rounded-lg sm:shadow-sm">
+          <div className="md:w-[40%] lg:w-[50%]  sm:bg-white   sm:p-8 sm:rounded-lg sm:shadow-sm">
             <h2 className="text-xl font-semibold mb-2 text-gray-700">Shipping Information</h2>
             <div className="space-y-3">
               <div>
@@ -428,7 +427,7 @@ export default function CartCheckoutPage() {
             </div>
           </div>
           {/* Right Column: Cart Summary */}
-          <div className="md:w-[60%] lg:w-[50%] sm:bg-white p-1 sm:py-4 sm:px-5 
+          <div className="md:w-[60%] lg:w-[50%] sm:bg-white  sm:p-8 
           sm:rounded-lg sm:shadow-sm">
             <h2 className="text-xl font-semibold mb-2 text-gray-700">Items</h2>
 
@@ -439,7 +438,7 @@ export default function CartCheckoutPage() {
                   className=" mb-7 sm:mb-3   "
                 >
 
-                  <div className="flex items-center gap-2.5 sm:gap-3 ">
+                  <div className="flex items-center gap-2 sm:gap-3 ">
                     {/* image section */}
                     <div className="h-full  ">
                       <Image
@@ -481,13 +480,14 @@ export default function CartCheckoutPage() {
                               cursor-pointer
                                focus:outline-none custom-dropdown-button"
                               >
-                                <span className="flex justify-center items-center">
-                                  Colour: <span className="h-6 ml-1 flex justify-center
-                             items-center bg-white sm:bg-[#ECF5F1] border text-[13px]  px-2 
-                              rounded-sm">{item.SelectedColor} <ChevronDown size='18' /></span></span>
+                                <span className="flex justify-center items-center text-[12px] sm:text-[13px]">
+                                  Colour: <span className="h-6 sm:ml-1 flex justify-center
+                             items-center bg-white sm:bg-[#ECF5F1] border text-[12px] sm:text-[13px] px-1 sm:px-2 
+                              rounded-sm">{item?.SelectedColor} <ChevronDown size='18' /></span>
+                                </span>
                               </button>
                               {openDropdown && openDropdown.itemId === item.id && openDropdown.type === "color" && (
-                                <ul className="absolute z-10 bg-white border border-[#3A9E75] 
+                                <ul className="absolute left-13 z-10 bg-white border border-[#3A9E75] 
                               rounded-xs shadow-lg mt-1.5  w-32 custom-dropdown-list">
                                   {item.colors.map((color, i) => (
                                     <li
@@ -510,10 +510,10 @@ export default function CartCheckoutPage() {
                                 className="text-sm sm:text-[15px] leading-5 text-gray-600  hover:text-gray-800
                                cursor-pointer focus:outline-none custom-dropdown-button"
                               >
-                                <span className="flex justify-center items-center">
+                                <span className="flex justify-center items-center text-[12px] sm:text-[13px]">
                                   Size: <span className="h-6  flex justify-center items-center bg-white 
                                  sm:bg-[#ECF5F1] px-2  rounded-sm border ml-[21px] sm:ml-1 md:ml-[23px]
-                                  lg:ml-1 text-[13px]">{item.SelectedSize}
+                                  lg:ml-1 text-[12px] sm:text-[13px] ">{item.SelectedSize}
                                     <ChevronDown size='18' /></span></span>
 
                               </button>
@@ -620,7 +620,7 @@ export default function CartCheckoutPage() {
                   onChange={(e) => setCuponCode(e.target.value)}
                 />
                 <button
-                  className="bg-[#3A9E75] focus:border-[#3A9E75] text-white px-4 py-1.5
+                  className="bg-[#3A9E75] focus:border-[#3A9E75] cursor-pointer text-white px-4 py-1.5
                    rounded-md rounded-l-none 
                   rounded-r-md"
                   onClick={applyPromoCode}
