@@ -66,7 +66,7 @@ export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
       country_id: countryId,
       full_name: form?.name,
       email: form?.email,
-      whats_app_no: `${form.countryCode}${form.whatsapp}`,
+      whats_app_no: `+${form.countryCode}${form.whatsapp}`,
 
       // whats_app_no: form?.whatsapp,
       full_address: form?.address,
@@ -183,19 +183,13 @@ export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
                 </label>
 
                 <div className="flex w-full gap-2">
-                  {/* Country Code Selector */}
-
-               
+                  {/* Country Code Selector for whatsapp number */}
                   <CountryCodeSelect
                     countries={countries}
                     value={form.countryCode}
                     onChange={(code) => setForm({ ...form, countryCode: code })}
                   />
-
-
-
                   {/* Phone Number */}
-
                   <input
                     type="tel"
                     name="whatsapp"
@@ -207,6 +201,7 @@ export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
                   />
 
                 </div>
+
               </div>
 
 
