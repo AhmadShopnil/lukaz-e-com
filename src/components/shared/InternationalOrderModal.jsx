@@ -6,8 +6,11 @@ import CustomSelectInput from "./CustomSelectInput"
 import axiosInstance from "@/utils/axiosInstance"
 import toast from "react-hot-toast"
 import { findByName, findCountryName } from "@/utils/findDistrictName"
+import { useRouter } from "next/navigation"
+import CountryCodeSelect from "./CountryCodeSelect"
 
 export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
+  const router = useRouter()
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -15,24 +18,25 @@ export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
     address: "",
     note: "",
     country: "",
+    countryCode: "",
   })
-  const [countries, setCountries]=useState([])
+  const [countries, setCountries] = useState([])
   const modalRef = useRef(null)
-  const [countryId,setCountryId]=useState()
+  const [countryId, setCountryId] = useState()
 
 
   // fetch countries data
   useEffect(() => {
-    const fetchCountries= async () => {
-    const {data} = await axiosInstance.get(`/countries`);  
-    setCountries(data)
+    const fetchCountries = async () => {
+      const { data } = await axiosInstance.get(`/countries`);
+      setCountries(data)
     };
-    fetchCountries();   
+    fetchCountries();
   }, []);
 
 
 
-
+  // console.log("countries", countries)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -42,45 +46,48 @@ export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
   const handleCountryChange = (value) => {
     setForm({ ...form, country: value })
     // get full country data by  name
-    const selectedCountry=findByName(countries,value)
+    const selectedCountry = findByName(countries, value)
     setCountryId(selectedCountry?.id)
   }
 
-  const handleSubmit = async (e)=>{
-     e.preventDefault();
-  
-     const orderData={
-      payment_method:null,
-      brand_id:data?.product?.product?.brand_id,
-      item_id:data?.product?.product_id,
-      item_name:data?.product?.product?.name,
-      icon:data?.product?.color_icon,
-      slug:data?.selectedColourSlug,
-      color:data?.selectedColor,
-      size:data?.selectedSize,
-      quantity:data?.quantity,
-      country_id:countryId,
-      full_name:form?.name,
-      email:form?.email,
-      whats_app_no:form?.whatsapp,
-      full_address:form?.address,
-      note:form?.note
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-     }
+    const orderData = {
+      payment_method: null,
+      brand_id: data?.product?.product?.brand_id,
+      item_id: data?.product?.product_id,
+      item_name: data?.product?.product?.name,
+      icon: data?.product?.color_icon,
+      slug: data?.selectedColourSlug,
+      color: data?.selectedColor,
+      size: data?.selectedSize,
+      quantity: data?.quantity,
+      country_id: countryId,
+      full_name: form?.name,
+      email: form?.email,
+      whats_app_no: `${form.countryCode}${form.whatsapp}`,
 
-  console.log("inter order place",orderData)
-  try {
-      const  response = await axiosInstance.post("/international/orders/place", orderData);
+      // whats_app_no: form?.whatsapp,
+      full_address: form?.address,
+      note: form?.note
 
-      if(response?.data?.order_no){
+    }
+
+    console.log(" order place data", orderData)
+    try {
+      const response = await axiosInstance.post("/international/orders/place", orderData);
+
+      if (response?.data?.order_no) {
         toast.success(` Successfully Order Placed`);
+        router.push(`/international-order-success?order_id=${response?.data?.order_no}`)
       }
 
-  } catch (error) {
-     toast.error(` Falid To Place Order`);
-     
-  }
-    
+    } catch (error) {
+      toast.error(` Falid To Place Order`);
+
+    }
+
 
     setIsOpen(false)
   }
@@ -174,17 +181,37 @@ export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   WhatsApp Number <span className="text-red-500">*</span>
                 </label>
-                <input
-                  type="tel"
-                  name="whatsapp"
-                  // placeholder="WhatsApp Number"
-                  value={form.whatsapp}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#3A9E75] focus:border-transparent outline-none transition-all text-sm"
-                />
+
+                <div className="flex w-full gap-2">
+                  {/* Country Code Selector */}
+
+               
+                  <CountryCodeSelect
+                    countries={countries}
+                    value={form.countryCode}
+                    onChange={(code) => setForm({ ...form, countryCode: code })}
+                  />
+
+
+
+                  {/* Phone Number */}
+
+                  <input
+                    type="tel"
+                    name="whatsapp"
+                    value={form.whatsapp}
+                    onChange={handleChange}
+                    required
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#3A9E75] text-sm"
+                    placeholder="Phone number"
+                  />
+
+                </div>
               </div>
-                  <div>
+
+
+
+              <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Address <span className="text-red-500">*</span>
                 </label>
@@ -201,7 +228,7 @@ export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
 
               {/* Country (Custom Select Input) */}
               <CustomSelectInput
-               options={findCountryName(countries)}
+                options={findCountryName(countries)}
                 selectedItem={form.country}
                 handleFunction={handleCountryChange}
                 label="Country"
@@ -235,7 +262,7 @@ export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
                   type="submit"
                   className="flex-1 bg-[#3A9E75] text-white py-2.5 rounded-md shadow-md hover:shadow-xl transition-all duration-200"
                 >
-                 Confirm Order
+                  Confirm Order
                 </button>
               </div>
             </form>

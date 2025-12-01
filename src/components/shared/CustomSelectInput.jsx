@@ -45,9 +45,9 @@ export default function CustomSelectInput({ options, selectedItem, handleFunctio
 
       {isOpen && (
         <ul className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-sm shadow-lg max-h-60 overflow-y-auto">
-          {options?.map((option) => (
+          {options?.map((option,i) => (
             <li
-              key={option}
+              key={i}
               onClick={() => handleSelect(option)}
               className="px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-[#3A9E75] hover:text-white"
             >

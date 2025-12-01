@@ -61,7 +61,7 @@ export default function OrdersTable({title,orderList}) {
                   <Link
                   href={`/dashboard/order/${order?.order_no}`}
                   className="text-blue-600 hover:underline">View</Link>
-                  <button className="text-red-600 hover:underline">Cancle</button>
+                  <button className="text-red-600 hover:underline">Cancel</button>
                 </td>
               </tr>
             ))}

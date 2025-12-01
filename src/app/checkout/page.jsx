@@ -12,7 +12,7 @@ import { CartContext } from "@/context/CartContext"
 import { getImageUrl, hasPreOrder, transformCartItem } from "@/utils/helpers"
 import { UserContext } from "@/context/UserContext"
 import { useRouter } from "next/navigation"
-import { findByName, findDistrictName } from "@/utils/findDistrictName"
+import { findByName, findDistrictName, findThanaNames } from "@/utils/findDistrictName"
 
 
 export default function CartCheckoutPage() {
@@ -27,6 +27,7 @@ export default function CartCheckoutPage() {
   const [fullName, setFullName] = useState("")
   const [thana, setThana] = useState("")
   const [distList, setDistList] = useState([])
+  const [thanaList, setThanaList] = useState([])
   const [distID, setDistID] = useState()
   const [note, setNote] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -66,6 +67,15 @@ export default function CartCheckoutPage() {
     };
     fetchDistricts();
   }, []);
+
+   useEffect(() => {
+    const fetchThana = async () => {
+      const { data } = await axiosInstance.get(`/police_stations/${distID}`);
+      setThanaList(data)
+    };
+    fetchThana();
+  }, [selectedDistrict]);
+
 
   useEffect(() => {
     if (user?.name) {
@@ -177,6 +187,12 @@ export default function CartCheckoutPage() {
     setSelectedDistrict(value)
 
   }
+    const handleThana = (value) => {
+
+    setThana(value)
+
+  }
+
 
   // Calculate Subtotal of Cart Items
   const cartSubtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -262,16 +278,13 @@ export default function CartCheckoutPage() {
 
       try {
 
-        console.log("Placing order...", orderData);
+        // console.log("Placing order...", orderData);
 
         // condition on placing order if user logged in or not
         let response;
         if (user?.name) {
-          console.log("Placing order from login user...", orderData);
           response = await axiosInstance.post("/auth/orders/place", orderData);
-          console.log("response logged in user", response)
         } else {
-          console.log("Placing order from unknown user...", orderData);
           response = await axiosInstance.post("/orders/place", orderData);
         }
 
@@ -361,16 +374,16 @@ export default function CartCheckoutPage() {
 
               <CustomSelectInput label="District" options={findDistrictName(distList)} selectedItem={selectedDistrict}
                 handleFunction={handleDistrict} />
-              {/* {
-                thanaList?.length>0 ?
-                <CustomSelectInput label="Thana" options={thanaList} selectedItem={thana}
+               {
+                thanaList?.length > 0 ?
+                <CustomSelectInput label="Thana" options={findThanaNames(thanaList)} selectedItem={thana}
                handleFunction={handleThana}/>
                :
                ""
-               } */}
+               }
 
 
-              <div>
+              {/* <div>
                 <label htmlFor="thana" className="block text-sm font-medium
                  text-gray-700 mb-1">
                   Thana <span className="text-red-500">*</span>
@@ -386,7 +399,7 @@ export default function CartCheckoutPage() {
                   onChange={(e) => setThana(e.target.value)}
                   required
                 />
-              </div>
+              </div> */}
 
 
               <div>

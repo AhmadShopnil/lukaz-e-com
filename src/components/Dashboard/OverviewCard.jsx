@@ -2,16 +2,16 @@ import { Icon } from "@iconify/react"
 import React from "react"
 
 const gradients = [
-  "bg-gradient-to-r from-[#3A9E75] to-[#56C596]", // green
-  "bg-gradient-to-r from-indigo-500 to-purple-500", // indigo-purple
-  "bg-gradient-to-r from-pink-500 to-rose-500", // pink-rose
-  "bg-gradient-to-r from-orange-400 to-yellow-500", // orange-yellow
-  "bg-gradient-to-r from-cyan-500 to-blue-500", // cyan-blue
+  "bg-gradient-to-r from-[#3A9E75] to-[#56C596]", 
+  "bg-gradient-to-r from-indigo-500 to-purple-500",
+  "bg-gradient-to-r from-pink-500 to-rose-500", 
+  "bg-gradient-to-r from-orange-400 to-yellow-500",
+  "bg-gradient-to-r from-cyan-500 to-blue-500", 
 ]
 
 
 export default function OverviewCard({ data, index,orderData }) {
-  const gradient = gradients[index % gradients.length] // cycle through gradients
+  const gradient = gradients[index % gradients.length] 
 
   return (
     <div

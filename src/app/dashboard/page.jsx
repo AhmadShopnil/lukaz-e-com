@@ -119,7 +119,7 @@ function Overview({ orderData }) {
         <div
           className={`p-4 rounded-sm shadow-sm text-white bg-gradient-to-r from-orange-400 to-yellow-500`}
         >
-          <h3 className="text-lg font-semibold mb-2">Canceled Order</h3>
+          <h3 className="text-lg font-semibold mb-2">Canceled  Order</h3>
           <div className="flex justify-between items-center">
             <p className="text-3xl font-bold">{orderData?.total_cancel}</p>
             <Icon icon={"solar:graph-new-broken"} width="28" height="28" />
