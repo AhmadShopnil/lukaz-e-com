@@ -13,6 +13,7 @@ import { getImageUrl, hasPreOrder, transformCartItem } from "@/utils/helpers"
 import { UserContext } from "@/context/UserContext"
 import { useRouter } from "next/navigation"
 import { findByName, findDistrictName, findThanaNames } from "@/utils/findDistrictName"
+import CustomSelectPlaceholder from "@/components/shared/CustomSelectPlaceholder"
 
 
 export default function CartCheckoutPage() {
@@ -68,7 +69,7 @@ export default function CartCheckoutPage() {
     fetchDistricts();
   }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchThana = async () => {
       const { data } = await axiosInstance.get(`/police_stations/${distID}`);
       setThanaList(data)
@@ -185,9 +186,10 @@ export default function CartCheckoutPage() {
     setShippingCharge(selectedDist?.courier_charge)
     setDistID(selectedDist?.id)
     setSelectedDistrict(value)
+    setThana("")
 
   }
-    const handleThana = (value) => {
+  const handleThana = (value) => {
 
     setThana(value)
 
@@ -374,13 +376,16 @@ export default function CartCheckoutPage() {
 
               <CustomSelectInput label="District" options={findDistrictName(distList)} selectedItem={selectedDistrict}
                 handleFunction={handleDistrict} />
-               {
+              {
                 thanaList?.length > 0 ?
-                <CustomSelectInput label="Thana" options={findThanaNames(thanaList)} selectedItem={thana}
-               handleFunction={handleThana}/>
-               :
-               ""
-               }
+                  <CustomSelectInput label="Thana" options={findThanaNames(thanaList)} selectedItem={thana}
+                    handleFunction={handleThana} />
+                  :
+                  <CustomSelectPlaceholder
+                    label="Thana"
+                    message="At first select district"
+                  />
+              }
 
 
               {/* <div>

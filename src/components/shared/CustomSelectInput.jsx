@@ -38,7 +38,7 @@ export default function CustomSelectInput({ options, selectedItem, handleFunctio
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <span className="text-sm text-gray-700">
-          {selectedItem || 'Select a district'}
+          {selectedItem || `Select a ${label}` }
         </span>
         <ChevronDown className="h-5 w-5 text-gray-400" />
       </div>
