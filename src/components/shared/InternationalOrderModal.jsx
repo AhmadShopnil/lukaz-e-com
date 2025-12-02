@@ -8,6 +8,7 @@ import toast from "react-hot-toast"
 import { findByName, findCountryName } from "@/utils/findDistrictName"
 import { useRouter } from "next/navigation"
 import CountryCodeSelect from "./CountryCodeSelect"
+import CustomSelectInputWithSearchOption from "./CustomSelectInputWithSearchOption"
 
 export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
   const router = useRouter()
@@ -222,7 +223,7 @@ export default function InternationalOrderModal({ isOpen, setIsOpen, data }) {
               </div>
 
               {/* Country (Custom Select Input) */}
-              <CustomSelectInput
+              <CustomSelectInputWithSearchOption
                 options={findCountryName(countries)}
                 selectedItem={form.country}
                 handleFunction={handleCountryChange}

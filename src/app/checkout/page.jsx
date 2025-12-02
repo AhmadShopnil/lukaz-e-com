@@ -14,6 +14,7 @@ import { UserContext } from "@/context/UserContext"
 import { useRouter } from "next/navigation"
 import { findByName, findDistrictName, findThanaNames } from "@/utils/findDistrictName"
 import CustomSelectPlaceholder from "@/components/shared/CustomSelectPlaceholder"
+import CustomSelectInputWithSearchOption from "@/components/shared/CustomSelectInputWithSearchOption"
 
 
 export default function CartCheckoutPage() {
@@ -374,11 +375,11 @@ export default function CartCheckoutPage() {
                 />
               </div>
 
-              <CustomSelectInput label="District" options={findDistrictName(distList)} selectedItem={selectedDistrict}
+              <CustomSelectInputWithSearchOption label="District" options={findDistrictName(distList)} selectedItem={selectedDistrict}
                 handleFunction={handleDistrict} />
               {
                 thanaList?.length > 0 ?
-                  <CustomSelectInput label="Thana" options={findThanaNames(thanaList)} selectedItem={thana}
+                  <CustomSelectInputWithSearchOption label="Thana" options={findThanaNames(thanaList)} selectedItem={thana}
                     handleFunction={handleThana} />
                   :
                   <CustomSelectPlaceholder
