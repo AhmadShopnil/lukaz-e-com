@@ -24,7 +24,7 @@ const ShipingTimeLine = () => {
         {features.map((feature, idx) => (
           <div
             key={idx}
-            className="flex flex-col items-center text-center space-y-2"
+            className="flex flex-col items-center text-center space-y-2 text-sm sm:text-base "
           >
             {feature.icon}
             <p className="font-medium text-gray-700">{feature.title}</p>

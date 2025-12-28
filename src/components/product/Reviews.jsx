@@ -56,7 +56,7 @@ export default  function Reviews({reviews}) {
   return (
     <div> 
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#3A9E75]">Customer Reviews</h2>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#3A9E75]">Customer Reviews</h2>
          <AddReview/>
         </div>
 

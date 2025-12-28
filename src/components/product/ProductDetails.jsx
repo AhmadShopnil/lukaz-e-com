@@ -174,7 +174,7 @@ export default function ProductDetails({ product }) {
   return (
     <Container className="pt-4 pb-10 md:py-10">
       {/* Breadcrumb */}
-      <div className="flex items-center space-x-2 text-sm text-gray-500 mb-4 md:mb-8">
+      <div className=" text-xs sm:text-sm flex items-center space-x-2  text-gray-500 mb-4 md:mb-8">
         <Link href="/" className="hover:text-gray-700">
           Home
         </Link>
@@ -422,7 +422,7 @@ export default function ProductDetails({ product }) {
           {/* Add to Cart */}
           <div className=" ">
             {selectedSize == null || selectedColor == null ?
-              <span className=" cursor-pointer w-full border border-gray-300 text-gray-800 py-3 px-6 rounded-md font-semibold hover:border-gray-500 hover:bg-gray-100 shadow-sm transition-all duration-300">
+              <span className="text-[13px] sm:text-base cursor-pointer w-full border border-gray-300 text-gray-800 py-3 px-3 sm:px-6 rounded-md font-semibold hover:border-gray-500 hover:bg-gray-100 shadow-sm transition-all duration-300">
                 Select Size and colour to place order
               </span>
               :

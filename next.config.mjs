@@ -3,11 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
 
   images: {
-    domains: ["luadmin.coderorbit.com"],
+    domains: ["admin.lukazshop.com"],
   },
 
   async rewrites() {
-    const backendUrl = process.env.BASE_URL || "https://luadmin.coderorbit.com"; 
+    const backendUrl = process.env.BASE_URL || "https://admin.lukazshop.com"; 
 
     return [
       {
