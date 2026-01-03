@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const baseUrl = process.env.BASE_URL; 
 const baseUrlFronEnd = process.env.BASE_URL_FRONTEND; 
-const frontendUrl = baseUrlFronEnd || "http://localhost:8000";
+const frontendUrl = baseUrlFronEnd || "http://lukazshop.com/";
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
@@ -24,11 +24,7 @@ export async function GET(req) {
 
     const orderId=result?.merchantInvoiceNumber
 
-    console.log("Bkash raw response:", result);
-    // console.log("Bkash  orderId:", orderId); 
-    // const rawText = await response.text(); 
-    // console.log("Bkash raw response:", rawText);
-  
+    // console.log("Bkash raw response:", result);
 
 
    return NextResponse.redirect(

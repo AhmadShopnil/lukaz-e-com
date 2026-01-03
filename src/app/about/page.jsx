@@ -176,7 +176,8 @@ const products = [
       </motion.section>
 
       {/* E-commerce Touch: Products that embody our values */}
-      <motion.section
+      
+      {/* <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -225,7 +226,7 @@ const products = [
   ))}
 </motion.div>
 
-      </motion.section>
+      </motion.section> */}
 
       {/* Team Section */}
       {/* <motion.section

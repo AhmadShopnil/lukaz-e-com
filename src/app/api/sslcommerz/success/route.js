@@ -5,13 +5,13 @@ const baseUrlFronEnd = process.env.BASE_URL_FRONTEND;
 
 export async function POST(req) {
 
-  const frontendUrl = baseUrlFronEnd || "http://localhost:8000";
+  const frontendUrl = baseUrlFronEnd || "http://lukazshop.com/";
 
   try {
     const rawBody = await req.text();
     const body = Object.fromEntries(new URLSearchParams(rawBody));
 
-    const response = await fetch(`${baseUrl}/api/sslcommerz/success`, {
+      const response = await fetch(`${baseUrl}/api/sslcommerz/success`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -27,8 +27,8 @@ export async function POST(req) {
       throw new Error("Transaction ID not found in response");
     }
 
-// console.log("order res ai route page",result)
-  const safeOrderId = encodeURIComponent(result.tran_id.replace(/,/g, "-"));
+
+  const safeOrderId = encodeURIComponent(result?.tran_id?.replace(/,/g, "-"));
 
     return NextResponse.redirect(
       `${frontendUrl}/order-success?order_id=${safeOrderId}`,{
@@ -39,9 +39,8 @@ export async function POST(req) {
   } catch (err) {
     console.error("SSLCommerz success error:", err);
     
-   
     return NextResponse.redirect(
-      `${frontendUrl}/order-failed?error=${encodeURIComponent(err.message)},{
+      `${frontendUrl}/order-failed?error=${encodeURIComponent(err?.message)},{
       status: 303, 
     }`
     );

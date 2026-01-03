@@ -24,6 +24,8 @@ export default function CartCheckoutPage() {
   const user = userState?.user
   const contextCartItems = state?.items;
   const [cartItems, setCartItems] = useState([]);
+  const [accepted, setAccepted] = useState(false);
+
   // Shipping Information State
   const [cuponCode, setCuponCode] = useState(null)
   const [fullName, setFullName] = useState("")
@@ -292,6 +294,8 @@ export default function CartCheckoutPage() {
         }
 
 
+        // console.log("order rsponse", response)
+
         // user not login then login with shipping info after place order
         if (!user?.name) {
           if (response?.data?.token) {
@@ -311,9 +315,15 @@ export default function CartCheckoutPage() {
 
         // redirect after login
         if (response?.data?.order_no) {
+
           toast.success(`Your order has been placed successfully!`);
           router.push(`/order-success?order_id=${response?.data?.order_no}`)
+
         } else if (response?.data?.payment_url) {
+
+
+          // console.log("from checkout", response)
+
           window.location.href = response?.data?.payment_url;
         } else {
           console.error("Order failed:", response.data);
@@ -388,24 +398,6 @@ export default function CartCheckoutPage() {
                   />
               }
 
-
-              {/* <div>
-                <label htmlFor="thana" className="block text-sm font-medium
-                 text-gray-700 mb-1">
-                  Thana <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="thana"
-                  className="bg-white mt-1 block w-full px-3 py-1.5 sm:py-2 border
-                   border-gray-300 rounded-sm
-                   shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1
-                   focus:ring-[#3A9E75] focus:border-[#3A9E75] sm:text-sm"
-                  value={thana}
-                  onChange={(e) => setThana(e.target.value)}
-                  required
-                />
-              </div> */}
 
 
               <div>
@@ -752,8 +744,61 @@ export default function CartCheckoutPage() {
 
 
 
+            {/* Terms & Conditions */}
+            <div className="mt-3 flex items-start gap-2 text-sm text-gray-700">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={accepted}
+                onChange={(e) => setAccepted(e.target.checked)}
+                className="mt-1 h-4 w-4 cursor-pointer accent-[#3A9E75]"
+              />
+
+              <label htmlFor="terms" className="cursor-pointer">
+                I agree to the
+               
+                <Link
+                  href="/refund-returned"
+                  target="_blank"
+                  className="text-[#3A9E75] underline px-1"
+                >
+                   Return Policy
+                </Link> 
+                 and
+                <Link
+                  href="/terms"
+                  target="_blank"
+                  className="text-[#3A9E75] underline px-1"
+                >
+                  Terms & Conditions
+                </Link>{" "}
+                
+              </label>
+            </div>
+
+
+
             {/* Place Order Button */}
-            <div className="mt-2 text-center">
+
+            {/* Place Order Button */}
+            <div className="mt-4 text-center">
+              <button
+                onClick={handlePlaceOrder}
+                disabled={!accepted || loading}
+                className={`w-full px-5 py-2 text-md font-semibold rounded-md shadow-md 
+      transition-colors duration-200 
+      ${accepted
+                    ? "bg-[#3A9E75] text-white hover:bg-[#2f5143]"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  }
+      focus:outline-none focus:ring-2`}
+              >
+                {loading ? "Loading.." : "Pay Now"}
+              </button>
+            </div>
+
+
+            {/* <div className="mt-2 text-center">
               <button
                 onClick={handlePlaceOrder}
 
@@ -764,7 +809,8 @@ export default function CartCheckoutPage() {
                 {loading ? "Loading.." : "Pay Now"}
               </button>
 
-            </div>
+            </div> */}
+
           </div>
         </div>
       </Container>
