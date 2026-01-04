@@ -66,6 +66,7 @@ export default function ProductDetails({ product }) {
 
   useEffect(() => {
     const selectedtem = product?.additionals.find((item) => item?.additional_key == customSlug) || {}
+  
     setSelectItemFromAdditional(selectedtem)
   }, [customSlug]);
 
@@ -100,6 +101,8 @@ export default function ProductDetails({ product }) {
   }
 
   const isButtonDisable = () => {
+
+
     if (product?.product?.is_pre_order == 0 && selectedItemFromAdditional?.stocks_sum_stock == 0) {
       return true;
     }
@@ -121,6 +124,25 @@ export default function ProductDetails({ product }) {
     dispatch({ type: "ADD_ITEM", payload });
     toast.success(` Added to cart`);
   }
+
+// for buy now button
+  const handleBuyNow= () => {
+    const payload = {
+      productData: product,
+      quantity,
+      selectedSize,
+      selectedColor,
+      selectedColourSlug,
+      selectedItemImage,
+      id: crypto.randomUUID(),
+      preOrder: isPreOrderRequired()
+    }
+    // console.log("cart payload",payload)
+    dispatch({ type: "ADD_ITEM", payload });
+   
+  }
+
+
   const isInWishlist = (slug) => {
     const exists = wishListState.items.find(
       (item) => item?.productData?.slug === slug
@@ -251,9 +273,9 @@ export default function ProductDetails({ product }) {
               watchSlidesProgress
               className="thumbs-swiper"
               breakpoints={{
-                320: { slidesPerView: 4, spaceBetween: 2 }, 
-                640: { slidesPerView: 5, spaceBetween: 2 },  
-                1024: { slidesPerView: 6, spaceBetween: 2 },  
+                320: { slidesPerView: 4, spaceBetween: 2 },
+                640: { slidesPerView: 5, spaceBetween: 2 },
+                1024: { slidesPerView: 6, spaceBetween: 2 },
               }}
             >
               {product?.gallaries?.map((item, index) => (
@@ -427,7 +449,23 @@ export default function ProductDetails({ product }) {
               </span>
               :
               <div className="flex flex-col sm:flex-row gap-2">
-                <button
+                <Link
+                  href="/checkout"
+                  onClick={handleBuyNow}
+                  disabled={isButtonDisable()}
+                  className={`w-full cursor-pointer py-3 px-6 text-center rounded-md font-semibold shadow-md hover:shadow-lg
+                   transition-all duration-300 disabled:cursor-not-allowed 
+                    ${isPreOrderRequired()
+                    ? "bg-gradient-to-r from-orange-600 to-orange-500 text-white hover:from-orange-700 hover:to-orange-600 disabled:from-gray-300 disabled:to-gray-300 disabled:text-gray-600"
+                    : "  bg-[#3A9E75] text-white  disabled:from-gray-300 disabled:to-gray-300 disabled:text-gray-600"
+                    }
+                    `}
+                >
+                   {isPreOrderRequired() ? "Pre-Order" : "Buy Now"}
+                  
+                </Link>
+              
+                {isPreOrderRequired() ? <></> :  <button
                   onClick={handleAddToCart}
                   disabled={isButtonDisable()}
                   className={`w-full cursor-pointer py-3 px-6 rounded-md font-semibold shadow-md hover:shadow-lg disabled:cursor-not-allowed transition-all duration-300 ${isPreOrderRequired()
@@ -436,7 +474,8 @@ export default function ProductDetails({ product }) {
                     }`}
                 >
                   {isPreOrderRequired() ? "Pre-Order" : "Add to Cart"}
-                </button>
+                </button> }
+
                 <button
                   onClick={handlewishList}
                   className=" cursor-pointer w-full border border-gray-300 text-gray-800 py-3 px-6 rounded-md font-semibold hover:border-gray-500 hover:bg-gray-100 shadow-sm transition-all duration-300">

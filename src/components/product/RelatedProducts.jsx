@@ -47,7 +47,7 @@ export default function RelatedProducts({ product }) {
   }, [categoryIds]);
 
 
-  console.log("releted items",relatedProducts)
+  // console.log("releted items",relatedProducts)
 
   return (
     <div>
