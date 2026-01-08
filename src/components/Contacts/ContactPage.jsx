@@ -259,6 +259,33 @@ export default function ContactPage({ outlets }) {
                 </div>
               </div>
 
+              {/* address 1  */}
+
+
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-[#3A9E75]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Address </h3>
+                  <p className="text-gray-600">Shop-1, Crd Floor, London Plaza, Uttara Ps</p>
+                  <p className="text-gray-600"> Dhaka-1230, Bangladesh</p>
+                </div>
+              </div>
+              {/* address 2  */}
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                   <svg className="w-6 h-6 text-[#3A9E75]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -279,11 +306,11 @@ export default function ContactPage({ outlets }) {
                 <div>
                   <h3 className="font-semibold text-gray-900">Address</h3>
                   <p className="text-gray-600">Haat Super Mall, 3/3 Main Road,Block -D, Shahjalal Uposhohor</p>
-                  <p className="text-gray-600"> Sylhet 3100 Sylhet, Bangladesh</p>
+                  <p className="text-gray-600">  Sylhet, Bangladesh</p>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-4">
+              {/* <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                   <svg className="w-6 h-6 text-[#3A9E75]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -299,7 +326,7 @@ export default function ContactPage({ outlets }) {
                   <p className="text-gray-600">Mon - Fri: 9:00 AM - 6:00 PM</p>
                   <p className="text-gray-600">Sat - Sun: 10:00 AM - 4:00 PM</p>
                 </div>
-              </div>
+              </div> */}
 
               <div className="pt-6 border-t border-gray-200">
                 <h3 className="font-semibold text-gray-900 mb-4">Follow Us</h3>

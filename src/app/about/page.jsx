@@ -105,7 +105,7 @@ const products = [
             About Us
           </h2>
            <p className="text-xl xl:text-[21px] text-gray-100 max-w-2xl mx-auto leading-relaxed">
-            Our business name is lukaz, Trade License Number is- 1230048190 
+            Our business name is lukaz, Trade license Number is- 1230048190 
           </p>
           {/* <p className="text-xl text-gray-100 max-w-2xl mx-auto leading-relaxed">
             We design with purpose, creating timeless pieces that elevate your everyday.
