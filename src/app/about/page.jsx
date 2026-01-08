@@ -104,9 +104,12 @@ const products = [
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 ">
             About Us
           </h2>
-          <p className="text-xl text-gray-100 max-w-2xl mx-auto leading-relaxed">
-            We design with purpose, creating timeless pieces that elevate your everyday.
+           <p className="text-xl xl:text-[21px] text-gray-100 max-w-2xl mx-auto leading-relaxed">
+            Our business name is lukaz, Trade License Number is- 1230048190 
           </p>
+          {/* <p className="text-xl text-gray-100 max-w-2xl mx-auto leading-relaxed">
+            We design with purpose, creating timeless pieces that elevate your everyday.
+          </p> */}
         </motion.div>
       </div>
 

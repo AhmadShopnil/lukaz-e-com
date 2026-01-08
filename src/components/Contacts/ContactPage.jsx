@@ -6,29 +6,29 @@ import toast from 'react-hot-toast';
 import axiosInstance from "@/utils/axiosInstance";
 import { getImageUrl } from "@/utils/helpers";
 
- const locations = [
-    {
-      name: "Main Office",
-      address: "123 Business Street, Suite 100, New York, NY 10001",
-      phone: "+1 (555) 123-4567",
-      image:"/images/branch/1.jpg"
-    },
-    {
-      name: "West Coast Branch",
-      address: "456 Innovation Ave, San Francisco, CA 94102",
-      phone: "+1 (555) 987-6543",
-      image:"/images/branch/2.jpg"
-    },
-    {
-      name: "European Office",
-      address: "789 Tech Boulevard, London, UK EC1A 1BB",
-      phone: "+44 20 7123 4567",
-      image:"/images/branch/3.jpg"
-    },
-  ]
+const locations = [
+  {
+    name: "Main Office",
+    address: "123 Business Street, Suite 100, New York, NY 10001",
+    phone: "+1 (555) 123-4567",
+    image: "/images/branch/1.jpg"
+  },
+  {
+    name: "West Coast Branch",
+    address: "456 Innovation Ave, San Francisco, CA 94102",
+    phone: "+1 (555) 987-6543",
+    image: "/images/branch/2.jpg"
+  },
+  {
+    name: "European Office",
+    address: "789 Tech Boulevard, London, UK EC1A 1BB",
+    phone: "+44 20 7123 4567",
+    image: "/images/branch/3.jpg"
+  },
+]
 
 
-export default function ContactPage({outlets}) {
+export default function ContactPage({ outlets }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -62,55 +62,55 @@ export default function ContactPage({outlets}) {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("from data",formData)
-   
+    console.log("from data", formData)
 
 
- try {
-     setIsSubmitting(true)
-    
-     await axiosInstance.post("/contracts", formData);
-    //  console.log("response for sent msg:", res?.data)
 
-     toast.success(` Successfully Message Sent`);
-     setFormData({ name: "", email: "", phone: "", message: "" })
+    try {
+      setIsSubmitting(true)
+
+      await axiosInstance.post("/contracts", formData);
+      //  console.log("response for sent msg:", res?.data)
+
+      toast.success(` Successfully Message Sent`);
+      setFormData({ name: "", email: "", phone: "", message: "" })
     } catch (err) {
       const message =
-      err?.response?.data?.message || "Something went wrong. Please try again.";
+        err?.response?.data?.message || "Something went wrong. Please try again.";
       setError(message);
 
       toast.error(`Something went wrong. Please try again.`);
 
     } finally {
-     setIsSubmitting(false)
-     
+      setIsSubmitting(false)
+
     }
 
 
 
-    
+
   }
 
- 
+
 
   return (
     <div className="min-h-screen ">
       {/* Header Section */}
-     <div className="bg-[#3A9E75] text-white py-16">
-       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 1, ease: "easeOut" }}
-        
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">We're Here to Help!</h1>
-          <p className="text-xl opacity-90">Get in touch with us and let's start a conversation</p>
-        </div>
-      </motion.div>
-     </div>
+      <div className="bg-[#3A9E75] text-white py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, ease: "easeOut" }}
+
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">We're Here to Help!</h1>
+            <p className="text-xl opacity-90">Get in touch with us and let's start a conversation</p>
+          </div>
+        </motion.div>
+      </div>
 
       <motion.div
         initial="hidden"
@@ -118,97 +118,97 @@ export default function ContactPage({outlets}) {
         variants={staggerContainer}
         className="bg-[#E6F4EF]  py-12 "
       >
-      <div className="mx-auto max-w-[1640px] px-3 sm:px-4 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:grid-rows-1">
+        <div className="mx-auto max-w-[1640px] px-3 sm:px-4 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:grid-rows-1">
           {/* Contact Form */}
-        <motion.div variants={fadeInVariants} className="bg-white rounded-sm shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {["name", "email", "phone", "message"].map((field, idx) => (
-              <motion.div key={idx} variants={fadeInVariants}>
-                <label
-                  htmlFor={field}
-                  className="block text-sm font-medium text-gray-700 mb-2 capitalize"
+          <motion.div variants={fadeInVariants} className="bg-white rounded-sm shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {["name", "email", "phone", "message"].map((field, idx) => (
+                <motion.div key={idx} variants={fadeInVariants}>
+                  <label
+                    htmlFor={field}
+                    className="block text-sm font-medium text-gray-700 mb-2 capitalize"
+                  >
+                    {field === "message" ? "Message" : field.replace(/^\w/, (c) => c.toUpperCase())}
+                  </label>
+                  {field !== "message" ? (
+                    <input
+                      id={field}
+                      name={field}
+                      type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
+                      value={formData[field]}
+                      onChange={handleInputChange}
+                      required={field !== "phone" && field !== "message" ? true : false}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#3A9E75] focus:border-transparent outline-none transition-all"
+                      placeholder={`Enter your ${field}`}
+                    />
+                  ) : (
+                    <textarea
+                      id={field}
+                      name={field}
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={4}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#3A9E75] focus:border-transparent outline-none transition-all resize-none"
+                      placeholder="Tell us how we can help you..."
+                    />
+                  )}
+                </motion.div>
+              ))}
+
+              <motion.div variants={fadeInVariants} className="space-y-4">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#3A9E75] hover:bg-[#368a67]  text-white font-semibold py-3 px-6 rounded-sm transition-colors duration-200"
                 >
-                  {field === "message" ? "Message" : field.replace(/^\w/, (c) => c.toUpperCase())}
-                </label>
-                {field !== "message" ? (
-                  <input
-                    id={field}
-                    name={field}
-                    type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
-                    value={formData[field]}
-                    onChange={handleInputChange}
-                    required={field !== "phone" && field !== "message" ? true : false}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#3A9E75] focus:border-transparent outline-none transition-all"
-                    placeholder={`Enter your ${field}`}
-                  />
-                ) : (
-                  <textarea
-                    id={field}
-                    name={field}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#3A9E75] focus:border-transparent outline-none transition-all resize-none"
-                    placeholder="Tell us how we can help you..."
-                  />
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </button>
+
+                {submitMessage && (
+                  <div className="text-green-600 font-medium text-center bg-green-50 p-3 rounded-lg">
+                    {submitMessage}
+                  </div>
                 )}
               </motion.div>
-            ))}
+            </form>
+          </motion.div>
 
-            <motion.div variants={fadeInVariants} className="space-y-4">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-[#3A9E75] hover:bg-[#368a67]  text-white font-semibold py-3 px-6 rounded-sm transition-colors duration-200"
-              >
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </button>
-
-              {submitMessage && (
-                <div className="text-green-600 font-medium text-center bg-green-50 p-3 rounded-lg">
-                  {submitMessage}
-                </div>
-              )}
-            </motion.div>
-          </form>
-        </motion.div>
-
-        {/* Outlets Information */}
-        <motion.div variants={fadeInVariants} className="">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 
+          {/* Outlets Information */}
+          <motion.div variants={fadeInVariants} className="">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 
           "><span className="border-b-4 border-b-[#3A9E75]">Out</span>lets</h2>
-          <motion.div variants={staggerContainer} className=" gap-4 grid grid-cols-1 sm:grid-cols-2 ">
-            {outlets.map((outlet, idx) => (
-              <motion.div
-                    key={idx}
-                    variants={fadeInVariants}
-                    className="bg-white rounded-md shadow hover:shadow-lg transition-shadow duration-300"
-                  >
-                    {/* Branch Image */}
-                    <div className="w-full h-48 overflow-hidden  ">
-                      <img
-                       src={getImageUrl("branch",outlet?.image)}
-                        alt={outlet?.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+            <motion.div variants={staggerContainer} className=" gap-4 grid grid-cols-1 sm:grid-cols-2 ">
+              {outlets.map((outlet, idx) => (
+                <motion.div
+                  key={idx}
+                  variants={fadeInVariants}
+                  className="bg-white rounded-md shadow hover:shadow-lg transition-shadow duration-300"
+                >
+                  {/* Branch Image */}
+                  <div className="w-full h-48 overflow-hidden  ">
+                    <img
+                      src={getImageUrl("branch", outlet?.image)}
+                      alt={outlet?.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
 
-                    <div className="p-3">
-                      <h3 className="font-semibold text-gray-900 text-md">{outlet?.name}</h3>
+                  <div className="p-3">
+                    <h3 className="font-semibold text-gray-900 text-md">{outlet?.name}</h3>
                     <p className="text-gray-600 text-sm my-1">{outlet?.address}</p>
                     <p className="text-gray-600 font-medium text-sm">{outlet?.contact}</p>
-                    </div>
-                  </motion.div>
+                  </div>
+                </motion.div>
 
-            ))}
+              ))}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </div>
+        </div>
       </motion.div>
- {/* Contact Information */}
-         
+      {/* Contact Information */}
+
 
       {/* Map Section and contact info*/}
       <motion.div
@@ -218,9 +218,9 @@ export default function ContactPage({outlets}) {
         className="py-6 sm:py-10 mx-auto max-w-[1640px] px-3 sm:px-4 md:px-16"
       >
         {/* <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Find Us On Map</h2> */}
-      <div className="flex flex-col md:flex-row gap-4">
-         {/* Contact Information */}
-        <div className="bg-white rounded-md shadow-sm p-4 sm:p-6 w-full md:w-1/2">
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Contact Information */}
+          <div className="bg-white rounded-md shadow-sm p-4 sm:p-6 w-full md:w-1/2">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
             <div className="space-y-6">
               <div className="flex items-center space-x-4">
@@ -236,7 +236,7 @@ export default function ContactPage({outlets}) {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900">Phone</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
+                  <p className="text-gray-600">+8801752-058475</p>
                   <p className="text-sm text-gray-500">Available 24/7 for urgent matters</p>
                 </div>
               </div>
@@ -254,7 +254,7 @@ export default function ContactPage({outlets}) {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900">Email</h3>
-                  <p className="text-gray-600">contact@company.com</p>
+                  <p className="text-gray-600">lukazshop@gmail.com</p>
                   <p className="text-sm text-gray-500">We respond within 24 hours</p>
                 </div>
               </div>
@@ -278,8 +278,8 @@ export default function ContactPage({outlets}) {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900">Address</h3>
-                  <p className="text-gray-600">123 Business Street, Suite 100</p>
-                  <p className="text-gray-600">New York, NY 10001</p>
+                  <p className="text-gray-600">Haat Super Mall, 3/3 Main Road,Block -D, Shahjalal Uposhohor</p>
+                  <p className="text-gray-600"> Sylhet 3100 Sylhet, Bangladesh</p>
                 </div>
               </div>
 
@@ -333,7 +333,18 @@ export default function ContactPage({outlets}) {
             </div>
           </div>
           <div className="rounded-md shadow-sm overflow-hidden w-full md:w-1/2">
-          <iframe
+            <iframe
+              src="https://www.google.com/maps?q=Haat%20Super%20Mall%2C%203%2F3%20Main%20Road%2C%20Block%20D%2C%20Shahjalal%20Uposhohor%2C%20Sylhet%203100%2C%20Bangladesh&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="inset-0"
+            />
+
+            {/* <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878459418!3d40.74844097932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1629794729807!5m2!1sen!2sus"
             width="100%"
             height="100%"
@@ -342,14 +353,14 @@ export default function ContactPage({outlets}) {
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             className=" inset-0"
-          />
+          /> */}
+          </div>
+
         </div>
-        
-      </div>
       </motion.div>
 
 
-      
+
     </div>
   )
 }

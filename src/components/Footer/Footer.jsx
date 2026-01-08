@@ -85,10 +85,16 @@ export default function Footer() {
                 </div>
 
 
-                <div className="flex items-center gap-2 cursor-pointer ">
+                <a
+                  href="https://www.facebook.com/Lukazshopp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 cursor-pointer "
+                >
                   <Icon icon="mingcute:facebook-line" width="20" height="20" />
                   <span>Facebook</span>
-                </div>
+                </a>
+
                 <Link
                   href="/contact"
                   className="flex items-center gap-2">
@@ -157,23 +163,23 @@ export default function Footer() {
               width={1640}
               height={250}
               className="w-full h-auto"
-              
+
             />
-            
+
           </div>
-            <div className="flex md:hidden w-full mt-8 bg-white   items-center">
-         
-               <Image
+          <div className="flex md:hidden w-full mt-8 bg-white   items-center">
+
+            <Image
               src="/images/payments/sll_all_m.png"
               alt="Available Payment Methods"
               width={1640}
               height={250}
               className="w-full h-auto"
-              
+
             />
           </div>
-          
-       
+
+
 
 
 
