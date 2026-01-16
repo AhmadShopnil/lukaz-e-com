@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, MessageCircle, Globe, Plus, Minus, Facebook } from 'lucide-react';
-import { FaWhatsapp, FaCookieBite } from 'react-icons/fa';
+import {  MessageCircle, Plus, Minus, Facebook } from 'lucide-react';
+import { FaWhatsapp,  } from 'react-icons/fa';
 import Container from '../shared/Container';
 import Link from 'next/link';
 import { useDashboard } from '@/context/DashboardContext';
@@ -27,7 +27,7 @@ export default function Footer() {
         { label: "Pre Order", href: "/dashboard", id: "preOrder" },
         { label: "Return Policy", href: "/refund-returned" },
         { label: "WishList", href: "/dashboard", id: "wishlist" },
-        { label: "Gift Vouchers", href: "/gift-voucher" },
+        // { label: "Gift Vouchers", href: "/gift-voucher" },
 
       ],
     },
@@ -163,10 +163,9 @@ export default function Footer() {
               width={1640}
               height={250}
               className="w-full h-auto"
-
             />
-
           </div>
+
           <div className="flex md:hidden w-full mt-8 bg-white   items-center">
 
             <Image

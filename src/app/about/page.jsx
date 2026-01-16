@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Leaf, Handshake, Lightbulb, ArrowRight, Search, ShoppingBag } from "lucide-react"
+import { Leaf, Handshake, Lightbulb, ArrowRight, Search, ShoppingBag, Truck } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -28,6 +28,11 @@ export default function AboutUsPage() {
       icon: Lightbulb,
       title: "Innovative Design",
       description: "Pushing boundaries to create functional and aesthetically pleasing products.",
+    },
+     {
+      icon: Truck,
+      title: "Delivery Time",
+      description: " Our Delevery Time is- Inside Dhaka 5 days, Outside Dhaka 10 days.",
     },
   ]
 
@@ -107,6 +112,7 @@ const products = [
            <p className="text-xl xl:text-[21px] text-gray-100 max-w-2xl mx-auto leading-relaxed">
             Our business name is lukaz, Trade license Number is- 1230048190 
           </p>
+          
           {/* <p className="text-xl text-gray-100 max-w-2xl mx-auto leading-relaxed">
             We design with purpose, creating timeless pieces that elevate your everyday.
           </p> */}
@@ -160,7 +166,7 @@ const products = [
       >
         <motion.div variants={fadeInVariants} className="mx-auto max-w-[1640px] px-3 sm:px-4 md:px-16 text-center">
           <h3 className="text-4xl font-bold text-gray-900 mb-12">Our Qualities </h3>
-          <motion.div variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <motion.div
                 key={index}
