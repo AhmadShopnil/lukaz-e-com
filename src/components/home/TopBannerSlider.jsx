@@ -25,8 +25,8 @@ export default function TopBannerSlider({ banners }) {
               <div
                 className="absolute inset-0 w-full h-full"
                 style={{
-                  backgroundImage: `url("/images/banner/b1.png")`,
-                //   backgroundImage: `url(${getImageUrl("banners", banner?.image)})`,
+                  // backgroundImage: `url("/images/banner/b1.png")`,
+                  backgroundImage: `url(${getImageUrl("banners", banner?.image)})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",

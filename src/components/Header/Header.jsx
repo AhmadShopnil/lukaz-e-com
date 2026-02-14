@@ -9,7 +9,7 @@ import CartSideBar from "../CartSideBar/CartSideBar"
 import WishListSideBar from "../WishListSidebar/WishListSidebar"
 import { UserContext } from "@/context/UserContext"
 import { useRouter } from "next/navigation"
-import { getChildMenusBySlug } from "@/utils/getChildMenusBySlug "
+import { getChildMenusBySlug } from "@/utils/getChildMenusBySlug"
 import { useFilter } from "@/context/FilterContext"
 
 
@@ -25,6 +25,8 @@ export default function Header({ mainMenus, categories, notices }) {
   const [searchQuery, setSearchQuery] = useState("")
   const dropdownRef = useRef(null)
   const [subMenuList, setSubMenuList] = useState([])
+  const [hoveredSubItem, setHoveredSubItem] = useState(null)
+
 
 
   const toggleMenu = () => {
@@ -66,21 +68,21 @@ export default function Header({ mainMenus, categories, notices }) {
   };
 
 
-const handleClickParentMenuItem=(item)=>{
-if(item?.childs?.length > 0){
-setHoveredItem(hoveredItem?.slug === item?.slug ? null : item)
-}
-else{
-  handleMenuItem(item)
-}
+  const handleClickParentMenuItem = (item) => {
+    if (item?.childs?.length > 0) {
+      setHoveredItem(hoveredItem?.slug === item?.slug ? null : item)
+    }
+    else {
+      handleMenuItem(item)
+    }
 
 
-}
+  }
 
   const handleMenuItem = (item) => {
     dispatchFilterProduct({ type: "SET_CATEGORIES", payload: item?.id })
     setIsMenuOpen((prev) => !prev)
-     router.push(`/shop`);
+    router.push(`/shop`);
     // router.push(`/shop/${item?.slug}`);
   }
 
@@ -126,15 +128,6 @@ else{
               <div className="flex gap-1 sm:gap-0 items-center ">
 
 
-                {/* {user?.name &&   
-              <Link
-                href="/dashboard"
-                className="p-1 sm:p-2 cursor-pointer"
-                 title="Dashboard"
-                >
-                  <User className="" size={23} />
-                </Link>
-                } */}
                 <WishListSideBar />
                 <CartSideBar />
 
@@ -196,12 +189,12 @@ else{
                        py-3 sm:py-4 hover:bg-gray-100 hover:text-[#3A9E75] cursor-pointer whitespace-nowrap ${hoveredItem === item?.slug ? "bg-gray-100 font-semibold" : ""
                       }`}
                     onMouseEnter={() => handleHoverItem(item)}
-                    onClick={ ()=>handleClickParentMenuItem(item)}
-                    // onClick={() => setHoveredItem(hoveredItem?.slug === item?.slug ? null : item)}
+                    onClick={() => handleClickParentMenuItem(item)}
+                  // onClick={() => setHoveredItem(hoveredItem?.slug === item?.slug ? null : item)}
                   >
                     <p
-                      // href={`/shop/${item?.slug}`}
-                      // onClick={() => handleMenuItem(item)}
+                    // href={`/shop/${item?.slug}`}
+                    // onClick={() => handleMenuItem(item)}
                     >
                       {item?.name}
                     </p>
@@ -216,38 +209,47 @@ else{
                 <div
                   className="flex-1  px-4 sm:px-8 lg:px-10 transition-all  lg:border-t-0  border-gray-200 pt-6  pb-4"
                   onMouseEnter={() => setHoveredItem(hoveredItem)}
+                  onMouseLeave={() => setHoveredSubItem(null)}
                 >
                   <div className="flex gap-2 sm:gap-4 items-center mb-1 sm:mb-2 hover:text-[#3A9E75] cursor-pointer">
                     <h2 className="text-lg sm:text-2xl font-semibold">{hoveredItem?.name} Store</h2>
                     <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 mt-0.5" />
                   </div>
 
-                  <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-7 lg:gap-10 pb-4">
+                  <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-4 lg:gap-4 pb-4">
                     {subMenuList?.map((item, i) => (
                       <div key={i} className="min-w-0 mt-6">
-                        <h4 
-                        // href={`/shop/${item?.slug}`}
-                        onClick={() => handleMenuItem(item)}
-                        className="font-semibold text-gray-800 cursor-pointer hover:text-[#3A9E75] text-sm sm:text-base mb-2 sm:mb-4">
-                          {item?.name} 
+                        <h4
+                          onMouseEnter={() => setHoveredSubItem(item?.slug)}
+                          onClick={() => handleMenuItem(item)}
+                          className="font-semibold text-gray-800 cursor-pointer hover:text-[#3A9E75] text-sm sm:text-base mb-2 
+                          sm:mb-4 flex gap-2 items-center"
+                        >
+                          {item?.name}
+                             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 " />
                         </h4>
-                        <ul className="space-y-1.5 sm:space-y-2.5 text-xs sm:text-sm text-gray-600">
-                          {item?.childs.map((item, j) => (
+
+                        <ul
+                          className={`space-y-1.5 sm:space-y-2.5 text-xs sm:text-sm text-gray-600
+                            transition-all duration-300 ease-in-out overflow-hidden
+                            ${hoveredSubItem === item?.slug
+                              ? "max-h-96 opacity-100 translate-y-0"
+                              : "max-h-0 opacity-0 -translate-y-2"
+                            }`}
+                        >
+                          {item?.childs?.map((child, j) => (
                             <li
-
-                              key={j} className="hover:text-[#3A9E75] cursor-pointer truncate">
-                              <p
-                                href={`/shop/${item?.slug}`}
-                                onClick={() => handleMenuItem(item)}
-                              >
-                                {item?.name}
-                              </p>
-
+                              key={j}
+                              className="hover:text-[#3A9E75] cursor-pointer truncate"
+                              onClick={() => handleMenuItem(child)}
+                            >
+                              {child?.name}
                             </li>
                           ))}
-
                         </ul>
+
                       </div>
+
                     ))}
                   </div>
                 </div>
@@ -257,7 +259,7 @@ else{
             {/* Bottom Info Bar */}
             {hoveredItem && (
               <div className="sticky bottom-0 w-full px-4 sm:px-6 py-3 sm:py-4 bg-[#E6F2ED] text-[#3A9E75] ">
-              
+
                 <MegaMenuBottomBar />
               </div>
             )}

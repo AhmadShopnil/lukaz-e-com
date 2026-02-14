@@ -32,7 +32,8 @@ export default async function Home() {
   return (
     <div className="">
 
-      <TopBanner />
+      {/* <TopBanner /> */}
+      <Banner/>
       <VideoSection video={videos[0]}/>
       <Container>
         {/* <Banner/> */}

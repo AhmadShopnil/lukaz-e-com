@@ -13,8 +13,11 @@ import { getImageUrl } from "@/utils/helpers";
 
 
 export default function BannerSlider({banners}) {
+
+// console.log("banners",banners)
+
   return (
-    <div className="relative w-full h-[180px] mt-10 mb-4">
+    <div className="relative w-full h-full  mb-4">
       <Swiper
         modules={[Autoplay, Pagination]}
         autoplay={{
@@ -27,12 +30,12 @@ export default function BannerSlider({banners}) {
       >
         {banners.map((banner, index) => (
           <SwiperSlide key={index}>
-            <div className="relative w-full h-[120px]">
+            <div className="relative w-full h-[150px] sm:h-[170px] md:h-[300px] lg:h-[500px] xl:h-[600px] ">
               <Image
                 src={getImageUrl("banners",banner?.image)}
                 alt={`Banner ${index + 1}`}
                 fill
-                className="object-cover rounded-md"
+                className="object-fit rounded-md"
                 priority={index === 0}
               />
             </div>

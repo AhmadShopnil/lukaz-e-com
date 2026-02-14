@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useContext } from "react"
 import Image from "next/image"
 import Container from "@/components/shared/Container"
 import { ChevronDown, Loader2, Minus, Plus } from "lucide-react"
-import CustomSelectInput from "@/components/shared/CustomSelectInput"
 import Link from "next/link"
 import toast from "react-hot-toast"
 import axiosInstance from "@/utils/axiosInstance"
@@ -764,7 +763,7 @@ export default function CartCheckoutPage() {
                   />
                 </div>
 
-                {/*                 
+                                
                 <div className="flex items-center ">
                   <input
                     type="radio"
@@ -778,7 +777,7 @@ export default function CartCheckoutPage() {
                   <label htmlFor="cod" className="ml-3 block text-base font-medium text-gray-700">
                     Cash on Delivery
                   </label>
-                </div> */}
+                </div> 
 
               </div>
             </div>
